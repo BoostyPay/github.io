@@ -1,3302 +1,1734 @@
+```html
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <meta name="description"
-          content="Путевые точки для Tiles Survive. Оставьте заявку, и мы свяжемся с вами для оформления и оплаты по СБП.">
-
-    <meta name="theme-color" content="#090b12">
-
-    <title>Путевые точки — Tiles Survive</title>
-
-    <!-- =========================================================
-         ЯНДЕКС МЕТРИКА
-         =========================================================
-         Здесь ничего менять не нужно.
-
-         Ниже в JavaScript найдите:
-         const YANDEX_METRIKA_ID = 0;
-
-         Вместо 0 укажите номер своего счётчика.
-
-         Например:
-         const YANDEX_METRIKA_ID = 12345678;
-         ========================================================= -->
-
-    <style>
-        /* =========================================================
-           ОСНОВНЫЕ НАСТРОЙКИ
-           ========================================================= */
-
-        :root {
-            --bg: #080a10;
-            --bg-soft: #0e111a;
-            --card: #111520;
-            --card-hover: #161b29;
-
-            --text: #ffffff;
-            --text-soft: #aeb5c5;
-            --text-dark: #70798d;
-
-            --accent: #8b5cf6;
-            --accent-light: #a78bfa;
-            --accent-2: #22d3ee;
-
-            --green: #22c55e;
-            --green-dark: #16a34a;
-
-            --border: rgba(255,255,255,0.08);
-
-            --radius: 22px;
-            --container: 1180px;
-
-            --shadow:
-                0 20px 70px rgba(0,0,0,0.45);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family:
-                Inter,
-                -apple-system,
-                BlinkMacSystemFont,
-                "Segoe UI",
-                Roboto,
-                Arial,
-                sans-serif;
-
-            color: var(--text);
-            background:
-                radial-gradient(
-                    circle at 20% 10%,
-                    rgba(139,92,246,0.13),
-                    transparent 30%
-                ),
-                radial-gradient(
-                    circle at 85% 30%,
-                    rgba(34,211,238,0.08),
-                    transparent 28%
-                ),
-                var(--bg);
-
-            line-height: 1.5;
-            min-height: 100vh;
-        }
-
-        body.modal-open {
-            overflow: hidden;
-        }
-
-        a {
-            color: inherit;
-            text-decoration: none;
-        }
-
-        button,
-        input,
-        textarea,
-        select {
-            font: inherit;
-        }
-
-        button {
-            cursor: pointer;
-        }
-
-        img {
-            max-width: 100%;
-            display: block;
-        }
-
-        .container {
-            width: min(
-                calc(100% - 40px),
-                var(--container)
-            );
-
-            margin: 0 auto;
-        }
-
-        /* =========================================================
-           HEADER
-           ========================================================= */
-
-        .header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 100;
-
-            background: rgba(8,10,16,0.72);
-            backdrop-filter: blur(18px);
-            -webkit-backdrop-filter: blur(18px);
-
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-        }
-
-        .header-inner {
-            height: 76px;
-
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 20px;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-
-            font-size: 19px;
-            font-weight: 800;
-            letter-spacing: -0.4px;
-        }
-
-        .logo-icon {
-            width: 40px;
-            height: 40px;
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Путевые точки для Tiles Survive. Оставьте заявку и мы свяжемся с вами для оформления и оплаты по СБП.">
+<meta name="theme-color" content="#080a12">
+
+<title>Tiles Survive — Путевые точки</title>
+
+<style>
+:root {
+    --bg: #070912;
+    --bg2: #0d1120;
+    --card: #111728;
+    --card2: #161d30;
+    --text: #ffffff;
+    --muted: #9ca7bb;
+    --accent: #8b5cf6;
+    --accent2: #22d3ee;
+    --green: #22c55e;
+    --border: rgba(255,255,255,.09);
+    --radius: 20px;
+    --container: 1160px;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    min-height: 100vh;
+    background:
+        radial-gradient(circle at 15% 10%, rgba(139,92,246,.16), transparent 30%),
+        radial-gradient(circle at 85% 25%, rgba(34,211,238,.08), transparent 28%),
+        var(--bg);
+    color: var(--text);
+    font-family: Arial, Helvetica, sans-serif;
+    line-height: 1.5;
+}
+
+body.modal-open {
+    overflow: hidden;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+button,
+input,
+textarea,
+select {
+    font: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+.container {
+    width: min(calc(100% - 32px), var(--container));
+    margin: 0 auto;
+}
+
+/* HEADER */
+
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 100;
+
+    background: rgba(7,9,18,.82);
+    backdrop-filter: blur(16px);
+
+    border-bottom: 1px solid rgba(255,255,255,.06);
+}
+
+.header-inner {
+    height: 72px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    font-size: 18px;
+    font-weight: 800;
+}
 
-            display: grid;
-            place-items: center;
-
-            border-radius: 12px;
-
-            background:
-                linear-gradient(
-                    135deg,
-                    var(--accent),
-                    var(--accent-2)
-                );
-
-            box-shadow:
-                0 8px 30px rgba(139,92,246,0.35);
-        }
-
-        .logo-icon::before {
-            content: "";
-            width: 17px;
-            height: 17px;
-
-            border-radius: 5px;
+.logo-icon {
+    width: 38px;
+    height: 38px;
 
-            background: rgba(255,255,255,0.95);
-
-            transform: rotate(45deg);
-        }
-
-        .nav {
-            display: flex;
-            align-items: center;
-            gap: 28px;
-        }
-
-        .nav a {
-            color: var(--text-soft);
-            font-size: 14px;
-            transition: 0.2s ease;
-        }
+    display: grid;
+    place-items: center;
 
-        .nav a:hover {
-            color: white;
-        }
+    border-radius: 11px;
 
-        .header-button {
-            padding: 11px 18px;
+    background: linear-gradient(135deg,var(--accent),var(--accent2));
 
-            border: 0;
-            border-radius: 12px;
+    box-shadow: 0 8px 30px rgba(139,92,246,.3);
+}
 
-            color: white;
+.logo-icon::after {
+    content: "";
+    width: 15px;
+    height: 15px;
 
-            background:
-                linear-gradient(
-                    135deg,
-                    var(--accent),
-                    #7042e8
-                );
+    background: #fff;
+    border-radius: 4px;
 
-            font-weight: 700;
+    transform: rotate(45deg);
+}
 
-            box-shadow:
-                0 8px 24px rgba(139,92,246,0.22);
+.nav {
+    display: flex;
+    gap: 25px;
+}
 
-            transition: 0.2s ease;
-        }
+.nav a {
+    color: var(--muted);
+    font-size: 14px;
+}
 
-        .header-button:hover {
-            transform: translateY(-2px);
-            box-shadow:
-                0 12px 30px rgba(139,92,246,0.35);
-        }
+.nav a:hover {
+    color: #fff;
+}
 
-        /* =========================================================
-           HERO
-           ========================================================= */
+.header-button {
+    border: 0;
+    border-radius: 11px;
 
-        .hero {
-            position: relative;
-            min-height: 760px;
+    padding: 11px 17px;
 
-            padding-top: 150px;
-            padding-bottom: 100px;
+    color: #fff;
+    background: linear-gradient(135deg,var(--accent),#6738db);
 
-            overflow: hidden;
-        }
+    font-weight: 700;
+}
 
-        .hero::before {
-            content: "";
+/* HERO */
 
-            position: absolute;
-            width: 600px;
-            height: 600px;
+.hero {
+    min-height: 760px;
 
-            left: -250px;
-            top: 100px;
+    padding-top: 145px;
+    padding-bottom: 90px;
 
-            border-radius: 50%;
+    display: flex;
+    align-items: center;
+}
 
-            background:
-                radial-gradient(
-                    circle,
-                    rgba(139,92,246,0.18),
-                    transparent 68%
-                );
+.hero-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
 
-            pointer-events: none;
-        }
+    align-items: center;
 
-        .hero::after {
-            content: "";
+    gap: 60px;
+}
 
-            position: absolute;
-            width: 500px;
-            height: 500px;
+.badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
 
-            right: -200px;
-            top: 100px;
+    padding: 8px 13px;
+    margin-bottom: 20px;
 
-            border-radius: 50%;
+    border-radius: 999px;
 
-            background:
-                radial-gradient(
-                    circle,
-                    rgba(34,211,238,0.11),
-                    transparent 68%
-                );
+    background: rgba(139,92,246,.1);
+    border: 1px solid rgba(139,92,246,.25);
 
-            pointer-events: none;
-        }
+    color: #c4b5fd;
 
-        .hero-grid {
-            position: relative;
-            z-index: 2;
+    font-size: 13px;
+    font-weight: 700;
+}
 
-            display: grid;
-            grid-template-columns: 1.05fr 0.95fr;
+.badge-dot {
+    width: 7px;
+    height: 7px;
 
-            align-items: center;
+    border-radius: 50%;
 
-            gap: 70px;
-        }
+    background: var(--green);
+    box-shadow: 0 0 12px rgba(34,197,94,.8);
+}
 
-        .badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
+.hero h1 {
+    font-size: clamp(43px,6vw,74px);
+    line-height: .98;
+    letter-spacing: -3px;
 
-            padding: 8px 13px;
+    margin-bottom: 25px;
+}
 
-            margin-bottom: 22px;
+.gradient {
+    background: linear-gradient(100deg,#fff,#c4b5fd,#67e8f9);
 
-            border-radius: 999px;
+    -webkit-background-clip: text;
+    background-clip: text;
 
-            background:
-                rgba(139,92,246,0.11);
+    color: transparent;
+}
 
-            border:
-                1px solid rgba(139,92,246,0.25);
+.hero-description {
+    max-width: 600px;
 
-            color: #c4b5fd;
+    color: var(--muted);
 
-            font-size: 13px;
-            font-weight: 700;
-        }
+    font-size: 18px;
 
-        .badge-dot {
-            width: 7px;
-            height: 7px;
+    margin-bottom: 30px;
+}
 
-            border-radius: 50%;
+.hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
 
-            background: var(--green);
+    margin-bottom: 28px;
+}
 
-            box-shadow:
-                0 0 12px rgba(34,197,94,0.8);
-        }
+.primary-button,
+.secondary-button {
+    min-height: 52px;
 
-        .hero h1 {
-            max-width: 750px;
+    padding: 0 23px;
 
-            font-size:
-                clamp(42px, 6vw, 76px);
+    border-radius: 13px;
 
-            line-height: 0.98;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 
-            letter-spacing: -3.5px;
+    font-weight: 800;
 
-            margin-bottom: 28px;
-        }
+    transition: .2s;
+}
 
-        .gradient-text {
-            background:
-                linear-gradient(
-                    100deg,
-                    #ffffff 15%,
-                    #c4b5fd 55%,
-                    #67e8f9 100%
-                );
+.primary-button {
+    border: 0;
 
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-        }
+    color: #fff;
 
-        .hero-description {
-            max-width: 620px;
+    background: linear-gradient(135deg,var(--accent),#6738db);
 
-            color: var(--text-soft);
+    box-shadow: 0 14px 40px rgba(139,92,246,.25);
+}
 
-            font-size: 18px;
+.primary-button:hover {
+    transform: translateY(-2px);
+}
 
-            margin-bottom: 34px;
-        }
+.secondary-button {
+    border: 1px solid var(--border);
 
-        .hero-actions {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 14px;
+    background: rgba(255,255,255,.04);
+}
 
-            margin-bottom: 36px;
-        }
+.secondary-button:hover {
+    background: rgba(255,255,255,.08);
+}
 
-        .primary-button {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
+.hero-points {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
 
-            min-height: 52px;
+    color: #747f94;
 
-            padding: 0 24px;
+    font-size: 13px;
+}
 
-            border: 0;
-            border-radius: 14px;
+.hero-points span::before {
+    content: "✓";
+    color: var(--green);
+    margin-right: 6px;
+}
 
-            color: white;
+/* GAME VISUAL */
 
-            background:
-                linear-gradient(
-                    135deg,
-                    var(--accent),
-                    #6d3ee4
-                );
+.visual {
+    position: relative;
 
-            font-weight: 800;
+    min-height: 460px;
 
-            box-shadow:
-                0 15px 40px rgba(139,92,246,0.25);
+    display: grid;
+    place-items: center;
+}
 
-            transition:
-                transform 0.2s ease,
-                box-shadow 0.2s ease;
-        }
+.glow {
+    position: absolute;
 
-        .primary-button:hover {
-            transform: translateY(-3px);
+    width: 380px;
+    height: 380px;
 
-            box-shadow:
-                0 20px 50px rgba(139,92,246,0.38);
-        }
+    border-radius: 50%;
 
-        .secondary-button {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
+    background: radial-gradient(circle,rgba(139,92,246,.24),transparent 68%);
+}
 
-            min-height: 52px;
+.board {
+    position: relative;
 
-            padding: 0 22px;
+    width: min(410px,100%);
+    aspect-ratio: 1;
 
-            border-radius: 14px;
+    padding: 20px;
 
-            border: 1px solid var(--border);
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    gap: 10px;
 
-            background: rgba(255,255,255,0.035);
+    border-radius: 28px;
 
-            color: white;
+    background: linear-gradient(145deg,rgba(255,255,255,.08),rgba(255,255,255,.02));
 
-            font-weight: 700;
+    border: 1px solid var(--border);
 
-            transition: 0.2s ease;
-        }
+    box-shadow: 0 30px 80px rgba(0,0,0,.5);
 
-        .secondary-button:hover {
-            background: rgba(255,255,255,0.07);
-            border-color: rgba(255,255,255,0.15);
-        }
+    transform: rotateX(5deg) rotateY(-5deg);
+}
 
-        .hero-note {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
+.tile {
+    border-radius: 13px;
 
-            color: var(--text-dark);
+    background: linear-gradient(145deg,#1c2435,#101522);
 
-            font-size: 13px;
-        }
+    border: 1px solid rgba(255,255,255,.06);
+}
 
-        .hero-note span {
-            display: flex;
-            align-items: center;
-            gap: 7px;
-        }
+.tile.purple {
+    background: linear-gradient(145deg,#9b6cff,#5530bd);
+}
 
-        .hero-note span::before {
-            content: "✓";
-            color: var(--green);
-            font-weight: 900;
-        }
+.tile.cyan {
+    background: linear-gradient(145deg,#2ce1f5,#087e96);
+}
 
-        /* =========================================================
-           GAME VISUAL
-           ========================================================= */
+.tile.green {
+    background: linear-gradient(145deg,#39d978,#16773d);
+}
 
-        .game-visual {
-            position: relative;
+.tile.yellow {
+    background: linear-gradient(145deg,#ffe04d,#a97400);
+}
 
-            min-height: 490px;
+.visual-card {
+    position: absolute;
 
-            display: grid;
-            place-items: center;
-        }
+    padding: 11px 15px;
 
-        .visual-glow {
-            position: absolute;
+    border-radius: 13px;
 
-            width: 380px;
-            height: 380px;
+    background: rgba(12,15,25,.9);
 
-            border-radius: 50%;
+    border: 1px solid var(--border);
 
-            background:
-                radial-gradient(
-                    circle,
-                    rgba(139,92,246,0.25),
-                    transparent 65%
-                );
+    box-shadow: 0 15px 35px rgba(0,0,0,.35);
 
-            filter: blur(5px);
-        }
+    font-size: 13px;
+    font-weight: 700;
+}
 
-        .tile-board {
-            position: relative;
+.visual-card.one {
+    top: 30px;
+    right: -10px;
+}
 
-            width: min(430px, 100%);
-            aspect-ratio: 1;
+.visual-card.two {
+    bottom: 25px;
+    left: -15px;
+}
 
-            padding: 24px;
+/* SECTIONS */
 
-            display: grid;
+.section {
+    padding: 90px 0;
+}
 
-            grid-template-columns:
-                repeat(4, 1fr);
+.section-head {
+    max-width: 720px;
 
-            gap: 12px;
+    margin: 0 auto 45px;
 
-            border-radius: 32px;
+    text-align: center;
+}
 
-            background:
-                linear-gradient(
-                    145deg,
-                    rgba(255,255,255,0.07),
-                    rgba(255,255,255,0.015)
-                );
+.section-label {
+    color: #a78bfa;
 
-            border:
-                1px solid rgba(255,255,255,0.09);
+    font-size: 12px;
+    font-weight: 800;
 
-            box-shadow:
-                0 35px 90px rgba(0,0,0,0.5),
-                inset 0 1px 0 rgba(255,255,255,0.08);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
 
-            transform:
-                perspective(1000px)
-                rotateX(5deg)
-                rotateY(-7deg);
-        }
+    margin-bottom: 10px;
+}
 
-        .tile {
-            position: relative;
+.section-title {
+    font-size: clamp(31px,4vw,48px);
 
-            border-radius: 15px;
+    line-height: 1.05;
 
-            background:
-                linear-gradient(
-                    145deg,
-                    #1b2231,
-                    #111621
-                );
+    letter-spacing: -2px;
 
-            border:
-                1px solid rgba(255,255,255,0.07);
+    margin-bottom: 15px;
+}
 
-            overflow: hidden;
-        }
+.section-description {
+    color: var(--muted);
+}
 
-        .tile::after {
-            content: "";
+/* ADVANTAGES */
 
-            position: absolute;
+.advantages {
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    gap: 15px;
+}
 
-            width: 50%;
-            height: 50%;
+.advantage {
+    padding: 25px;
 
-            top: 10%;
-            left: 10%;
+    border-radius: var(--radius);
 
-            border-radius: 7px;
+    background: rgba(255,255,255,.035);
 
-            background:
-                rgba(255,255,255,0.04);
-        }
+    border: 1px solid var(--border);
 
-        .tile.active {
-            background:
-                linear-gradient(
-                    145deg,
-                    #8b5cf6,
-                    #5130bd
-                );
+    transition: .2s;
+}
 
-            box-shadow:
-                0 12px 28px rgba(139,92,246,0.25);
-        }
+.advantage:hover {
+    transform: translateY(-4px);
 
-        .tile.cyan {
-            background:
-                linear-gradient(
-                    145deg,
-                    #22d3ee,
-                    #087f98
-                );
+    border-color: rgba(139,92,246,.3);
+}
 
-            box-shadow:
-                0 12px 28px rgba(34,211,238,0.2);
-        }
+.icon {
+    width: 45px;
+    height: 45px;
 
-        .tile.green {
-            background:
-                linear-gradient(
-                    145deg,
-                    #22c55e,
-                    #147c3d
-                );
+    display: grid;
+    place-items: center;
 
-            box-shadow:
-                0 12px 28px rgba(34,197,94,0.18);
-        }
+    margin-bottom: 18px;
 
-        .tile.yellow {
-            background:
-                linear-gradient(
-                    145deg,
-                    #facc15,
-                    #b47c06
-                );
-        }
+    border-radius: 13px;
 
-        .visual-badge {
-            position: absolute;
+    background: rgba(139,92,246,.12);
 
-            display: flex;
-            align-items: center;
-            gap: 10px;
+    color: #c4b5fd;
 
-            padding: 12px 16px;
+    font-weight: 900;
+}
 
-            border-radius: 15px;
+.advantage h3 {
+    margin-bottom: 8px;
+}
 
-            background:
-                rgba(12,15,23,0.86);
+.advantage p {
+    color: var(--muted);
+    font-size: 14px;
+}
 
-            border:
-                1px solid rgba(255,255,255,0.09);
+/* ABOUT */
 
-            box-shadow:
-                0 18px 40px rgba(0,0,0,0.35);
+.about {
+    display: grid;
+    grid-template-columns: .9fr 1.1fr;
+    gap: 65px;
 
-            backdrop-filter: blur(12px);
+    align-items: center;
+}
 
-            font-size: 13px;
-            font-weight: 700;
-        }
+.about-visual {
+    min-height: 390px;
 
-        .visual-badge.top {
-            top: 30px;
-            right: -15px;
-        }
+    display: grid;
+    place-items: center;
 
-        .visual-badge.bottom {
-            bottom: 35px;
-            left: -20px;
-        }
+    border-radius: 28px;
 
-        .visual-badge-icon {
-            width: 30px;
-            height: 30px;
+    background:
+        radial-gradient(circle,rgba(139,92,246,.16),transparent 65%),
+        rgba(255,255,255,.025);
 
-            display: grid;
-            place-items: center;
+    border: 1px solid var(--border);
+}
 
-            border-radius: 9px;
+.about-logo {
+    width: 190px;
+    height: 190px;
 
-            background: rgba(139,92,246,0.2);
+    display: grid;
+    place-items: center;
 
-            color: #c4b5fd;
-        }
+    border-radius: 50%;
 
-        /* =========================================================
-           SECTION
-           ========================================================= */
+    background: linear-gradient(135deg,var(--accent),var(--accent2));
 
-        .section {
-            padding: 100px 0;
-        }
+    font-size: 46px;
+    font-weight: 900;
 
-        .section-header {
-            max-width: 760px;
+    box-shadow: 0 0 90px rgba(139,92,246,.3);
+}
 
-            margin:
-                0 auto 48px;
+.about-content h2 {
+    font-size: clamp(32px,4vw,48px);
+    line-height: 1.05;
+    letter-spacing: -2px;
 
-            text-align: center;
-        }
+    margin-bottom: 20px;
+}
 
-        .section-label {
-            display: inline-block;
+.about-content p {
+    color: var(--muted);
 
-            margin-bottom: 12px;
+    margin-bottom: 15px;
+}
 
-            color: #a78bfa;
+.check-list {
+    list-style: none;
 
-            font-size: 13px;
-            font-weight: 800;
+    display: grid;
+    gap: 12px;
 
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-        }
+    margin-top: 25px;
+}
 
-        .section-title {
-            font-size:
-                clamp(32px, 4vw, 50px);
+.check-list li {
+    display: flex;
+    gap: 10px;
 
-            line-height: 1.05;
+    color: #dfe3eb;
+}
 
-            letter-spacing: -2px;
+.check-list li::before {
+    content: "✓";
 
-            margin-bottom: 18px;
-        }
+    flex: 0 0 auto;
 
-        .section-description {
-            color: var(--text-soft);
-            font-size: 17px;
-        }
+    width: 22px;
+    height: 22px;
 
-        /* =========================================================
-           ADVANTAGES
-           ========================================================= */
+    display: grid;
+    place-items: center;
 
-        .advantages {
-            display: grid;
+    border-radius: 6px;
 
-            grid-template-columns:
-                repeat(4, 1fr);
+    background: rgba(34,197,94,.12);
 
-            gap: 16px;
-        }
+    color: #4ade80;
 
-        .advantage {
-            padding: 28px;
+    font-size: 12px;
+}
 
-            border-radius: var(--radius);
+/* OFFERS */
 
-            background:
-                linear-gradient(
-                    145deg,
-                    rgba(255,255,255,0.045),
-                    rgba(255,255,255,0.018)
-                );
+.offers-box {
+    max-width: 900px;
 
-            border:
-                1px solid var(--border);
+    margin: auto;
 
-            transition: 0.25s ease;
-        }
+    border-radius: 23px;
 
-        .advantage:hover {
-            transform: translateY(-5px);
+    overflow: hidden;
 
-            background:
-                linear-gradient(
-                    145deg,
-                    rgba(255,255,255,0.065),
-                    rgba(255,255,255,0.025)
-                );
+    border: 1px solid var(--border);
 
-            border-color:
-                rgba(139,92,246,0.28);
-        }
+    background: rgba(255,255,255,.025);
+}
 
-        .advantage-icon {
-            width: 48px;
-            height: 48px;
+.offers-toggle {
+    width: 100%;
 
-            display: grid;
-            place-items: center;
+    padding: 24px;
 
-            margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 
-            border-radius: 14px;
+    border: 0;
 
-            background:
-                rgba(139,92,246,0.12);
+    background: linear-gradient(100deg,rgba(139,92,246,.15),rgba(34,211,238,.05));
 
-            color: #c4b5fd;
+    color: #fff;
 
-            font-size: 21px;
-        }
+    text-align: left;
+}
 
-        .advantage h3 {
-            font-size: 17px;
-            margin-bottom: 8px;
-        }
+.offers-toggle strong {
+    display: block;
 
-        .advantage p {
-            color: var(--text-soft);
-            font-size: 14px;
-        }
+    font-size: 18px;
 
-        /* =========================================================
-           ABOUT
-           ========================================================= */
+    margin-bottom: 4px;
+}
 
-        .about-grid {
-            display: grid;
+.offers-toggle small {
+    color: var(--muted);
+}
 
-            grid-template-columns:
-                0.9fr 1.1fr;
+.arrow {
+    width: 38px;
+    height: 38px;
 
-            gap: 70px;
+    display: grid;
+    place-items: center;
 
-            align-items: center;
-        }
+    border-radius: 10px;
 
-        .about-card {
-            position: relative;
+    background: rgba(255,255,255,.07);
 
-            min-height: 400px;
+    transition: .3s;
+}
 
-            display: grid;
-            place-items: center;
+.offers-box.open .arrow {
+    transform: rotate(180deg);
+}
 
-            border-radius: 30px;
+.offers-content {
+    max-height: 0;
 
-            background:
-                radial-gradient(
-                    circle at center,
-                    rgba(139,92,246,0.17),
-                    transparent 65%
-                ),
-                rgba(255,255,255,0.025);
+    overflow: hidden;
 
-            border:
-                1px solid var(--border);
+    transition: max-height .4s ease;
+}
 
-            overflow: hidden;
-        }
+.offers-box.open .offers-content {
+    max-height: 1200px;
+}
 
-        .about-orb {
-            width: 210px;
-            height: 210px;
+.offers-inner {
+    padding: 10px 15px;
+}
 
-            display: grid;
-            place-items: center;
+.offer {
+    display: grid;
+    grid-template-columns: 1fr auto auto;
 
-            border-radius: 50%;
+    align-items: center;
 
-            background:
-                linear-gradient(
-                    145deg,
-                    rgba(139,92,246,0.95),
-                    rgba(34,211,238,0.75)
-                );
+    gap: 20px;
 
-            box-shadow:
-                0 0 100px rgba(139,92,246,0.3);
+    padding: 17px;
 
-            font-size: 64px;
-            font-weight: 900;
-        }
+    border-bottom: 1px solid rgba(255,255,255,.06);
+}
 
-        .about-content h2 {
-            font-size:
-                clamp(30px, 4vw, 46px);
+.offer:last-child {
+    border-bottom: 0;
+}
 
-            line-height: 1.05;
+.offer-title {
+    font-weight: 750;
+}
 
-            letter-spacing: -1.8px;
+.offer-title small {
+    display: block;
 
-            margin-bottom: 22px;
-        }
+    margin-top: 3px;
 
-        .about-content p {
-            color: var(--text-soft);
+    color: #687388;
 
-            font-size: 16px;
+    font-size: 12px;
+}
 
-            margin-bottom: 18px;
-        }
+.offer-price {
+    white-space: nowrap;
 
-        .about-list {
-            list-style: none;
+    font-size: 18px;
+    font-weight: 850;
+}
 
-            display: grid;
-            gap: 13px;
+.offer-button {
+    min-height: 42px;
 
-            margin-top: 25px;
-        }
+    padding: 0 15px;
 
-        .about-list li {
-            display: flex;
-            align-items: flex-start;
-            gap: 11px;
+    border-radius: 10px;
 
-            color: #dce0e9;
+    border: 1px solid rgba(139,92,246,.3);
 
-            font-size: 15px;
-        }
+    background: rgba(139,92,246,.1);
 
-        .about-list li::before {
-            content: "✓";
+    color: #c4b5fd;
 
-            flex: 0 0 auto;
+    font-weight: 750;
+}
 
-            width: 23px;
-            height: 23px;
+.offer-button:hover {
+    color: #fff;
 
-            display: grid;
-            place-items: center;
+    background: var(--accent);
+}
 
-            border-radius: 7px;
+/* STEPS */
 
-            background:
-                rgba(34,197,94,0.12);
+.steps {
+    display: grid;
+    grid-template-columns: repeat(6,1fr);
+    gap: 12px;
+}
 
-            color: #4ade80;
+.step {
+    padding: 22px;
 
-            font-size: 12px;
-            font-weight: 900;
-        }
+    min-height: 180px;
 
-        /* =========================================================
-           OFFERS
-           ========================================================= */
+    border-radius: 17px;
 
-        .offers-section {
-            position: relative;
+    border: 1px solid var(--border);
 
-            overflow: hidden;
-        }
+    background: rgba(255,255,255,.025);
+}
 
-        .offers-section::before {
-            content: "";
+.number {
+    width: 34px;
+    height: 34px;
 
-            position: absolute;
+    display: grid;
+    place-items: center;
 
-            width: 700px;
-            height: 500px;
+    margin-bottom: 17px;
 
-            left: 50%;
-            top: 40%;
+    border-radius: 9px;
 
-            transform: translate(-50%, -50%);
+    background: rgba(139,92,246,.14);
 
-            background:
-                radial-gradient(
-                    ellipse,
-                    rgba(139,92,246,0.09),
-                    transparent 68%
-                );
+    color: #c4b5fd;
 
-            pointer-events: none;
-        }
+    font-weight: 900;
+}
 
-        .offers-box {
-            position: relative;
-            z-index: 2;
+.step h3 {
+    font-size: 15px;
 
-            max-width: 900px;
+    margin-bottom: 7px;
+}
 
-            margin: 0 auto;
+.step p {
+    color: var(--muted);
+    font-size: 13px;
+}
 
-            border-radius: 26px;
+/* FAQ */
 
-            background:
-                rgba(255,255,255,0.025);
+.faq {
+    max-width: 820px;
 
-            border:
-                1px solid var(--border);
+    margin: auto;
+}
 
-            overflow: hidden;
-        }
+.faq-item {
+    border-bottom: 1px solid var(--border);
+}
 
-        .offers-toggle {
-            width: 100%;
+.faq-question {
+    width: 100%;
 
-            padding: 25px 28px;
+    padding: 22px 0;
 
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 
-            gap: 20px;
+    border: 0;
 
-            border: 0;
+    background: transparent;
 
-            background:
-                linear-gradient(
-                    100deg,
-                    rgba(139,92,246,0.13),
-                    rgba(34,211,238,0.06)
-                );
+    color: #fff;
 
-            color: white;
+    text-align: left;
 
-            text-align: left;
+    font-weight: 750;
+}
 
-            transition: 0.2s ease;
-        }
+.faq-plus {
+    font-size: 24px;
 
-        .offers-toggle:hover {
-            background:
-                linear-gradient(
-                    100deg,
-                    rgba(139,92,246,0.18),
-                    rgba(34,211,238,0.09)
-                );
-        }
+    color: #a78bfa;
 
-        .offers-toggle-text strong {
-            display: block;
+    transition: .2s;
+}
 
-            font-size: 19px;
+.faq-item.open .faq-plus {
+    transform: rotate(45deg);
+}
 
-            margin-bottom: 4px;
-        }
+.faq-answer {
+    max-height: 0;
 
-        .offers-toggle-text span {
-            color: var(--text-soft);
-            font-size: 13px;
-        }
+    overflow: hidden;
 
-        .toggle-arrow {
-            width: 38px;
-            height: 38px;
+    transition: max-height .3s;
+}
 
-            flex: 0 0 auto;
+.faq-answer div {
+    padding: 0 40px 20px 0;
 
-            display: grid;
-            place-items: center;
+    color: var(--muted);
 
-            border-radius: 11px;
+    font-size: 14px;
+}
 
-            background: rgba(255,255,255,0.07);
+/* CTA */
 
-            transition: transform 0.25s ease;
-        }
+.cta {
+    padding: 70px 25px;
 
-        .offers-box.open .toggle-arrow {
-            transform: rotate(180deg);
-        }
+    text-align: center;
 
-        .offers-list {
-            max-height: 0;
+    border-radius: 28px;
 
-            overflow: hidden;
+    background:
+        radial-gradient(circle at 50% 0%,rgba(139,92,246,.2),transparent 65%),
+        rgba(255,255,255,.035);
 
-            transition:
-                max-height 0.45s ease;
-        }
+    border: 1px solid rgba(139,92,246,.2);
+}
 
-        .offers-box.open .offers-list {
-            max-height: 1500px;
-        }
+.cta h2 {
+    font-size: clamp(31px,4vw,48px);
 
-        .offers-inner {
-            padding: 18px;
-        }
+    letter-spacing: -2px;
 
-        .offer {
-            display: grid;
+    margin-bottom: 14px;
+}
 
-            grid-template-columns:
-                1fr auto auto;
+.cta p {
+    max-width: 600px;
 
-            align-items: center;
+    margin: 0 auto 25px;
 
-            gap: 20px;
+    color: var(--muted);
+}
 
-            padding: 18px;
+/* FOOTER */
 
-            border-bottom:
-                1px solid rgba(255,255,255,0.055);
-        }
+.footer {
+    padding: 45px 0 30px;
 
-        .offer:last-child {
-            border-bottom: 0;
-        }
+    border-top: 1px solid var(--border);
+}
 
-        .offer-name {
-            font-size: 16px;
-            font-weight: 750;
-        }
+.footer-top {
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
 
-        .offer-name small {
-            display: block;
+    padding-bottom: 30px;
+}
 
-            color: var(--text-dark);
+.footer-description {
+    max-width: 400px;
 
-            font-size: 12px;
+    margin-top: 10px;
 
-            margin-top: 3px;
-        }
+    color: #687388;
 
-        .offer-price {
-            font-size: 19px;
-            font-weight: 850;
+    font-size: 13px;
+}
 
-            white-space: nowrap;
-        }
+.footer-links {
+    display: flex;
+    gap: 22px;
+}
 
-        .offer-button {
-            min-height: 42px;
+.footer-links a {
+    color: var(--muted);
+    font-size: 14px;
+}
 
-            padding: 0 16px;
+.footer-bottom {
+    padding-top: 22px;
 
-            border: 1px solid rgba(139,92,246,0.3);
+    border-top: 1px solid rgba(255,255,255,.05);
 
-            border-radius: 11px;
+    color: #626d81;
 
-            background:
-                rgba(139,92,246,0.1);
+    font-size: 12px;
+}
 
-            color: #c4b5fd;
+/* MODAL */
 
-            font-weight: 750;
+.modal {
+    position: fixed;
 
-            transition: 0.2s ease;
-        }
+    inset: 0;
 
-        .offer-button:hover {
-            color: white;
+    z-index: 1000;
 
-            background:
-                var(--accent);
+    display: none;
 
-            border-color:
-                var(--accent);
+    align-items: center;
+    justify-content: center;
 
-            transform: translateY(-1px);
-        }
+    padding: 15px;
 
-        /* =========================================================
-           HOW IT WORKS
-           ========================================================= */
+    background: rgba(0,0,0,.78);
 
-        .steps {
-            display: grid;
+    backdrop-filter: blur(9px);
+}
 
-            grid-template-columns:
-                repeat(6, 1fr);
+.modal.active {
+    display: flex;
+}
 
-            gap: 12px;
-        }
+.modal-card {
+    position: relative;
 
-        .step {
-            position: relative;
+    width: min(540px,100%);
 
-            padding: 25px 18px;
+    max-height: calc(100vh - 30px);
 
-            min-height: 190px;
+    overflow-y: auto;
 
-            border-radius: 20px;
+    padding: 28px;
 
-            background:
-                rgba(255,255,255,0.025);
+    border-radius: 23px;
 
-            border:
-                1px solid var(--border);
-        }
+    background: #111725;
 
-        .step-number {
-            width: 35px;
-            height: 35px;
+    border: 1px solid var(--border);
 
-            display: grid;
-            place-items: center;
+    box-shadow: 0 30px 90px rgba(0,0,0,.6);
+}
 
-            margin-bottom: 20px;
+.close {
+    position: absolute;
 
-            border-radius: 10px;
+    top: 15px;
+    right: 15px;
 
-            background:
-                rgba(139,92,246,0.15);
+    width: 38px;
+    height: 38px;
 
-            color: #c4b5fd;
+    border: 0;
 
-            font-weight: 900;
-        }
+    border-radius: 10px;
 
-        .step h3 {
-            font-size: 15px;
-            margin-bottom: 8px;
-        }
+    background: rgba(255,255,255,.06);
 
-        .step p {
-            color: var(--text-soft);
-            font-size: 13px;
-        }
+    color: #fff;
 
-        /* =========================================================
-           FAQ
-           ========================================================= */
+    font-size: 22px;
+}
 
-        .faq {
-            max-width: 820px;
+.modal-title {
+    padding-right: 45px;
 
-            margin: 0 auto;
-        }
+    margin-bottom: 22px;
+}
 
-        .faq-item {
-            border-bottom:
-                1px solid var(--border);
-        }
+.modal-title h2 {
+    font-size: 27px;
+    margin-bottom: 6px;
+}
 
-        .faq-question {
-            width: 100%;
+.modal-title p {
+    color: var(--muted);
+    font-size: 14px;
+}
 
-            padding: 23px 0;
+.selected {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+    padding: 13px 15px;
 
-            gap: 20px;
+    margin-bottom: 18px;
 
-            border: 0;
+    border-radius: 11px;
 
-            background: transparent;
+    background: rgba(139,92,246,.1);
 
-            color: white;
+    border: 1px solid rgba(139,92,246,.18);
 
-            text-align: left;
+    font-size: 13px;
+}
 
-            font-size: 16px;
-            font-weight: 750;
-        }
+.selected strong {
+    font-size: 16px;
+}
 
-        .faq-icon {
-            flex: 0 0 auto;
+.form-group {
+    margin-bottom: 15px;
+}
 
-            width: 30px;
-            height: 30px;
+.form-group label {
+    display: block;
 
-            display: grid;
-            place-items: center;
+    margin-bottom: 6px;
 
-            border-radius: 9px;
+    color: #dce0e8;
 
-            background:
-                rgba(255,255,255,0.06);
+    font-size: 13px;
+    font-weight: 700;
+}
 
-            color: var(--text-soft);
+.input,
+textarea,
+select {
+    width: 100%;
 
-            transition: 0.2s ease;
-        }
+    padding: 12px 13px;
 
-        .faq-item.open .faq-icon {
-            transform: rotate(45deg);
+    min-height: 47px;
 
-            background:
-                rgba(139,92,246,0.15);
+    border: 1px solid rgba(255,255,255,.1);
 
-            color: #c4b5fd;
-        }
+    border-radius: 11px;
 
-        .faq-answer {
-            max-height: 0;
+    outline: none;
 
-            overflow: hidden;
+    background: rgba(255,255,255,.045);
 
-            transition:
-                max-height 0.35s ease;
-        }
+    color: #fff;
+}
 
-        .faq-answer-inner {
-            padding:
-                0 45px 22px 0;
+textarea {
+    min-height: 95px;
 
-            color: var(--text-soft);
+    resize: vertical;
+}
 
-            font-size: 14px;
-        }
+.input:focus,
+textarea:focus,
+select:focus {
+    border-color: var(--accent);
+}
 
-        /* =========================================================
-           CTA
-           ========================================================= */
+select option {
+    background: #111725;
+    color: #fff;
+}
 
-        .cta {
-            position: relative;
+.submit {
+    width: 100%;
 
-            padding: 70px 30px;
+    min-height: 51px;
 
-            text-align: center;
+    border: 0;
 
-            border-radius: 30px;
+    border-radius: 12px;
 
-            background:
-                radial-gradient(
-                    circle at 50% 0%,
-                    rgba(139,92,246,0.24),
-                    transparent 60%
-                ),
-                linear-gradient(
-                    145deg,
-                    rgba(255,255,255,0.055),
-                    rgba(255,255,255,0.02)
-                );
+    background: linear-gradient(135deg,var(--accent),#6738db);
 
-            border:
-                1px solid rgba(139,92,246,0.2);
+    color: #fff;
 
-            overflow: hidden;
-        }
+    font-weight: 850;
+}
 
-        .cta h2 {
-            font-size:
-                clamp(30px, 4vw, 48px);
+.submit:disabled {
+    opacity: .55;
+}
 
-            line-height: 1.05;
+.form-note {
+    margin-top: 11px;
 
-            letter-spacing: -2px;
+    color: #626d81;
 
-            margin-bottom: 16px;
-        }
+    font-size: 11px;
 
-        .cta p {
-            max-width: 600px;
+    text-align: center;
+}
 
-            margin: 0 auto 27px;
+.error {
+    display: none;
 
-            color: var(--text-soft);
-        }
+    margin-bottom: 15px;
 
-        /* =========================================================
-           FOOTER
-           ========================================================= */
+    padding: 11px;
 
-        .footer {
-            padding: 45px 0 30px;
+    border-radius: 9px;
 
-            border-top:
-                1px solid var(--border);
-        }
+    background: rgba(239,68,68,.1);
 
-        .footer-inner {
-            display: flex;
+    border: 1px solid rgba(239,68,68,.2);
 
-            justify-content: space-between;
-            align-items: flex-start;
+    color: #fca5a5;
 
-            gap: 30px;
+    font-size: 13px;
+}
 
-            padding-bottom: 35px;
-        }
+.error.show {
+    display: block;
+}
 
-        .footer-brand p {
-            max-width: 400px;
+.success {
+    display: none;
 
-            color: var(--text-dark);
+    text-align: center;
 
-            font-size: 13px;
+    padding: 25px 5px;
+}
 
-            margin-top: 12px;
-        }
+.success.show {
+    display: block;
+}
 
-        .footer-links {
-            display: flex;
-            gap: 25px;
-        }
+.success-icon {
+    width: 65px;
+    height: 65px;
 
-        .footer-links a {
-            color: var(--text-soft);
-            font-size: 14px;
-        }
+    display: grid;
+    place-items: center;
 
-        .footer-links a:hover {
-            color: white;
-        }
+    margin: 0 auto 17px;
 
-        .footer-bottom {
-            padding-top: 25px;
+    border-radius: 50%;
 
-            border-top:
-                1px solid rgba(255,255,255,0.05);
+    background: rgba(34,197,94,.12);
 
-            color: var(--text-dark);
+    color: #4ade80;
 
-            font-size: 12px;
+    font-size: 29px;
+}
 
-            line-height: 1.6;
-        }
+.success h3 {
+    font-size: 24px;
 
-        /* =========================================================
-           MODAL
-           ========================================================= */
+    margin-bottom: 9px;
+}
 
-        .modal {
-            position: fixed;
+.success p {
+    color: var(--muted);
+}
 
-            inset: 0;
+.hidden-bot {
+    position: absolute !important;
 
-            z-index: 1000;
+    left: -99999px !important;
 
-            display: none;
+    width: 1px !important;
+    height: 1px !important;
 
-            align-items: center;
-            justify-content: center;
+    opacity: 0 !important;
+}
 
-            padding: 20px;
+/* RESPONSIVE */
 
-            background:
-                rgba(0,0,0,0.78);
+@media(max-width:1000px) {
+    .hero-grid {
+        grid-template-columns: 1fr;
 
-            backdrop-filter: blur(10px);
-        }
+        text-align: center;
+    }
 
-        .modal.active {
-            display: flex;
-        }
+    .hero-description {
+        margin-left: auto;
+        margin-right: auto;
+    }
 
-        .modal-card {
-            position: relative;
+    .hero-actions,
+    .hero-points {
+        justify-content: center;
+    }
 
-            width: min(560px, 100%);
+    .visual {
+        max-width: 500px;
+        width: 100%;
 
-            max-height: calc(100vh - 40px);
+        margin: auto;
+    }
 
-            overflow-y: auto;
+    .advantages {
+        grid-template-columns: repeat(2,1fr);
+    }
 
-            padding: 30px;
+    .about {
+        grid-template-columns: 1fr;
+    }
 
-            border-radius: 25px;
+    .steps {
+        grid-template-columns: repeat(3,1fr);
+    }
+}
 
-            background:
-                linear-gradient(
-                    145deg,
-                    #151a27,
-                    #0e121c
-                );
+@media(max-width:700px) {
+    .container {
+        width: min(calc(100% - 24px),var(--container));
+    }
 
-            border:
-                1px solid rgba(255,255,255,0.1);
+    .header-inner {
+        height: 65px;
+    }
 
-            box-shadow:
-                0 30px 100px rgba(0,0,0,0.65);
+    .nav {
+        display: none;
+    }
 
-            animation:
-                modalIn 0.25s ease;
-        }
+    .header-button {
+        padding: 9px 12px;
+        font-size: 12px;
+    }
 
-        @keyframes modalIn {
-            from {
-                opacity: 0;
-                transform: translateY(15px) scale(0.98);
-            }
+    .logo {
+        font-size: 15px;
+    }
 
-            to {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-            }
-        }
+    .logo-icon {
+        width: 33px;
+        height: 33px;
+    }
 
-        .modal-close {
-            position: absolute;
+    .hero {
+        padding-top: 115px;
+        padding-bottom: 65px;
+    }
 
-            top: 18px;
-            right: 18px;
+    .hero h1 {
+        font-size: 42px;
+    }
 
-            width: 38px;
-            height: 38px;
+    .hero-description {
+        font-size: 16px;
+    }
 
-            display: grid;
-            place-items: center;
+    .hero-actions {
+        flex-direction: column;
+    }
 
-            border: 0;
+    .primary-button,
+    .secondary-button {
+        width: 100%;
+    }
 
-            border-radius: 10px;
+    .board {
+        width: 320px;
+        padding: 16px;
+        gap: 8px;
+    }
 
-            background:
-                rgba(255,255,255,0.06);
+    .visual {
+        min-height: 350px;
+    }
 
-            color: var(--text-soft);
+    .visual-card.one {
+        right: 0;
+    }
 
-            font-size: 22px;
+    .visual-card.two {
+        left: 0;
+    }
 
-            transition: 0.2s ease;
-        }
+    .advantages {
+        grid-template-columns: 1fr;
+    }
 
-        .modal-close:hover {
-            background:
-                rgba(255,255,255,0.1);
+    .steps {
+        grid-template-columns: 1fr 1fr;
+    }
 
-            color: white;
-        }
+    .offer {
+        grid-template-columns: 1fr auto;
+        gap: 10px;
+    }
 
-        .modal-header {
-            padding-right: 45px;
+    .offer-button {
+        grid-column: 1 / -1;
+        width: 100%;
+    }
 
-            margin-bottom: 25px;
-        }
+    .footer-top {
+        flex-direction: column;
+    }
 
-        .modal-header h2 {
-            font-size: 28px;
+    .footer-links {
+        flex-wrap: wrap;
+    }
+}
 
-            letter-spacing: -1px;
+@media(max-width:430px) {
+    .hero h1 {
+        font-size: 37px;
+    }
 
-            margin-bottom: 7px;
-        }
+    .steps {
+        grid-template-columns: 1fr;
+    }
 
-        .modal-header p {
-            color: var(--text-soft);
+    .board {
+        width: 280px;
+    }
 
-            font-size: 14px;
-        }
+    .visual-card {
+        font-size: 11px;
+        padding: 9px 11px;
+    }
 
-        .selected-offer {
-            display: flex;
-
-            justify-content: space-between;
-            align-items: center;
-
-            gap: 20px;
-
-            padding: 14px 16px;
-
-            margin-bottom: 20px;
-
-            border-radius: 13px;
-
-            background:
-                rgba(139,92,246,0.09);
-
-            border:
-                1px solid rgba(139,92,246,0.18);
-        }
-
-        .selected-offer span:first-child {
-            color: var(--text-soft);
-            font-size: 13px;
-        }
-
-        .selected-offer strong {
-            font-size: 17px;
-        }
-
-        .form-group {
-            margin-bottom: 17px;
-        }
-
-        .form-group label {
-            display: block;
-
-            margin-bottom: 7px;
-
-            font-size: 13px;
-
-            color: #d9dce5;
-
-            font-weight: 700;
-        }
-
-        .form-control {
-            width: 100%;
-
-            min-height: 48px;
-
-            padding: 12px 14px;
-
-            border:
-                1px solid rgba(255,255,255,0.09);
-
-            border-radius: 12px;
-
-            outline: none;
-
-            background:
-                rgba(255,255,255,0.045);
-
-            color: white;
-
-            transition: 0.2s ease;
-        }
-
-        .form-control::placeholder {
-            color: #687184;
-        }
-
-        .form-control:focus {
-            border-color:
-                rgba(139,92,246,0.7);
-
-            box-shadow:
-                0 0 0 3px rgba(139,92,246,0.1);
-        }
-
-        textarea.form-control {
-            min-height: 110px;
-
-            resize: vertical;
-        }
-
-        select.form-control {
-            appearance: auto;
-        }
-
-        .submit-button {
-            width: 100%;
-
-            min-height: 52px;
-
-            border: 0;
-
-            border-radius: 13px;
-
-            background:
-                linear-gradient(
-                    135deg,
-                    var(--accent),
-                    #6d3ee4
-                );
-
-            color: white;
-
-            font-weight: 850;
-
-            transition: 0.2s ease;
-        }
-
-        .submit-button:hover {
-            transform: translateY(-2px);
-        }
-
-        .submit-button:disabled {
-            opacity: 0.55;
-
-            cursor: not-allowed;
-
-            transform: none;
-        }
-
-        .form-note {
-            margin-top: 13px;
-
-            color: var(--text-dark);
-
-            font-size: 11px;
-
-            line-height: 1.5;
-
-            text-align: center;
-        }
-
-        .form-error {
-            display: none;
-
-            margin-bottom: 15px;
-
-            padding: 12px 14px;
-
-            border-radius: 11px;
-
-            background:
-                rgba(239,68,68,0.1);
-
-            border:
-                1px solid rgba(239,68,68,0.2);
-
-            color: #fca5a5;
-
-            font-size: 13px;
-        }
-
-        .form-error.show {
-            display: block;
-        }
-
-        .success-message {
-            display: none;
-
-            text-align: center;
-
-            padding: 30px 10px;
-        }
-
-        .success-message.show {
-            display: block;
-        }
-
-        .success-icon {
-            width: 70px;
-            height: 70px;
-
-            display: grid;
-            place-items: center;
-
-            margin: 0 auto 20px;
-
-            border-radius: 50%;
-
-            background:
-                rgba(34,197,94,0.12);
-
-            color: #4ade80;
-
-            font-size: 30px;
-
-            border:
-                1px solid rgba(34,197,94,0.2);
-        }
-
-        .success-message h3 {
-            font-size: 25px;
-
-            margin-bottom: 10px;
-        }
-
-        .success-message p {
-            color: var(--text-soft);
-
-            font-size: 14px;
-        }
-
-        .honeypot {
-            position: absolute !important;
-
-            left: -9999px !important;
-
-            width: 1px !important;
-            height: 1px !important;
-
-            opacity: 0 !important;
-        }
-
-        /* =========================================================
-           RESPONSIVE
-           ========================================================= */
-
-        @media (max-width: 1000px) {
-
-            .hero-grid {
-                grid-template-columns: 1fr;
-
-                text-align: center;
-            }
-
-            .hero-description {
-                margin-left: auto;
-                margin-right: auto;
-            }
-
-            .hero-actions {
-                justify-content: center;
-            }
-
-            .hero-note {
-                justify-content: center;
-            }
-
-            .game-visual {
-                max-width: 520px;
-
-                width: 100%;
-
-                margin: 0 auto;
-            }
-
-            .advantages {
-                grid-template-columns:
-                    repeat(2, 1fr);
-            }
-
-            .about-grid {
-                grid-template-columns: 1fr;
-
-                gap: 40px;
-            }
-
-            .about-card {
-                min-height: 350px;
-            }
-
-            .steps {
-                grid-template-columns:
-                    repeat(3, 1fr);
-            }
-        }
-
-        @media (max-width: 720px) {
-
-            .container {
-                width:
-                    min(
-                        calc(100% - 28px),
-                        var(--container)
-                    );
-            }
-
-            .header-inner {
-                height: 66px;
-            }
-
-            .nav {
-                display: none;
-            }
-
-            .header-button {
-                padding:
-                    9px 13px;
-
-                font-size: 12px;
-            }
-
-            .logo {
-                font-size: 15px;
-            }
-
-            .logo-icon {
-                width: 34px;
-                height: 34px;
-            }
-
-            .hero {
-                min-height: auto;
-
-                padding-top: 120px;
-                padding-bottom: 70px;
-            }
-
-            .hero h1 {
-                font-size: 43px;
-
-                letter-spacing: -2.3px;
-            }
-
-            .hero-description {
-                font-size: 16px;
-            }
-
-            .hero-actions {
-                flex-direction: column;
-            }
-
-            .primary-button,
-            .secondary-button {
-                width: 100%;
-            }
-
-            .game-visual {
-                min-height: 360px;
-            }
-
-            .tile-board {
-                width: 330px;
-
-                padding: 18px;
-
-                gap: 8px;
-
-                border-radius: 24px;
-            }
-
-            .tile {
-                border-radius: 10px;
-            }
-
-            .visual-badge.top {
-                right: -5px;
-                top: 5px;
-            }
-
-            .visual-badge.bottom {
-                left: -5px;
-                bottom: 10px;
-            }
-
-            .visual-badge {
-                padding: 9px 12px;
-
-                font-size: 11px;
-            }
-
-            .visual-badge-icon {
-                width: 25px;
-                height: 25px;
-            }
-
-            .section {
-                padding: 70px 0;
-            }
-
-            .section-title {
-                letter-spacing: -1.3px;
-            }
-
-            .advantages {
-                grid-template-columns: 1fr;
-            }
-
-            .advantage {
-                padding: 22px;
-            }
-
-            .steps {
-                grid-template-columns:
-                    repeat(2, 1fr);
-            }
-
-            .offer {
-                grid-template-columns:
-                    1fr auto;
-
-                gap: 10px;
-            }
-
-            .offer-price {
-                grid-column: 2;
-                grid-row: 1;
-            }
-
-            .offer-button {
-                grid-column:
-                    1 / -1;
-
-                width: 100%;
-            }
-
-            .offers-toggle {
-                padding: 20px;
-            }
-
-            .offers-inner {
-                padding: 10px;
-            }
-
-            .footer-inner {
-                flex-direction: column;
-            }
-
-            .footer-links {
-                flex-wrap: wrap;
-            }
-
-            .modal {
-                padding: 10px;
-            }
-
-            .modal-card {
-                padding: 22px;
-
-                border-radius: 20px;
-
-                max-height:
-                    calc(100vh - 20px);
-            }
-        }
-
-        @media (max-width: 430px) {
-
-            .hero h1 {
-                font-size: 38px;
-            }
-
-            .steps {
-                grid-template-columns: 1fr;
-            }
-
-            .step {
-                min-height: auto;
-            }
-
-            .about-orb {
-                width: 160px;
-                height: 160px;
-
-                font-size: 48px;
-            }
-
-            .game-visual {
-                min-height: 320px;
-            }
-
-            .tile-board {
-                width: 285px;
-            }
-
-            .visual-badge.top {
-                right: -10px;
-            }
-
-            .visual-badge.bottom {
-                left: -10px;
-            }
-        }
-    </style>
+    .modal-card {
+        padding: 21px;
+    }
+}
+</style>
 </head>
 
 <body>
 
-    <!-- =========================================================
-         HEADER
-         ========================================================= -->
+<header class="header">
+    <div class="container header-inner">
 
-    <header class="header">
-        <div class="container header-inner">
+        <a href="#" class="logo">
+            <span class="logo-icon"></span>
+            <span>Tiles Survive</span>
+        </a>
 
-            <a href="#" class="logo">
-                <span class="logo-icon"></span>
-                <span>Tiles Survive</span>
-            </a>
+        <nav class="nav">
+            <a href="#about">О предложении</a>
+            <a href="#offers">Предложения</a>
+            <a href="#steps">Как оформить</a>
+            <a href="#faq">FAQ</a>
+        </nav>
 
-            <nav class="nav">
-                <a href="#about">О предложении</a>
-                <a href="#offers">Предложения</a>
-                <a href="#how">Как оформить</a>
-                <a href="#faq">FAQ</a>
-            </nav>
+        <button class="header-button" onclick="openForm()">
+            Оставить заявку
+        </button>
 
-            <button
-                class="header-button"
-                type="button"
-                onclick="openForm()"
-            >
-                Оставить заявку
-            </button>
+    </div>
+</header>
+
+<main>
+
+<section class="hero">
+    <div class="container hero-grid">
+
+        <div>
+
+            <div class="badge">
+                <span class="badge-dot"></span>
+                Путевые точки для Tiles Survive
+            </div>
+
+            <h1>
+                <span class="gradient">Путевые точки</span>
+                <br>
+                для Tiles Survive
+            </h1>
+
+            <p class="hero-description">
+                Выберите нужное количество Путевых точек,
+                оставьте заявку — мы свяжемся с вами,
+                уточним детали и договоримся об оплате по СБП.
+            </p>
+
+            <div class="hero-actions">
+
+                <button class="primary-button" onclick="openForm()">
+                    Оставить заявку →
+                </button>
+
+                <a class="secondary-button" href="#offers">
+                    Посмотреть предложения
+                </a>
+
+            </div>
+
+            <div class="hero-points">
+                <span>Быстрая связь</span>
+                <span>Оплата по СБП</span>
+                <span>Без автоматического списания</span>
+            </div>
 
         </div>
-    </header>
 
+        <div class="visual">
 
-    <main>
+            <div class="glow"></div>
 
-        <!-- =====================================================
-             HERO
-             ===================================================== -->
+            <div class="board">
 
-        <section class="hero">
+                <div class="tile purple"></div>
+                <div class="tile"></div>
+                <div class="tile cyan"></div>
+                <div class="tile"></div>
 
-            <div class="container hero-grid">
+                <div class="tile"></div>
+                <div class="tile green"></div>
+                <div class="tile purple"></div>
+                <div class="tile"></div>
 
-                <div>
+                <div class="tile yellow"></div>
+                <div class="tile"></div>
+                <div class="tile"></div>
+                <div class="tile cyan"></div>
 
-                    <div class="badge">
-                        <span class="badge-dot"></span>
-                        Предложения для Tiles Survive
-                    </div>
-
-                    <h1>
-                        <span class="gradient-text">
-                            Путевые точки
-                        </span>
-                        <br>
-                        для Tiles Survive
-                    </h1>
-
-                    <p class="hero-description">
-                        Выберите нужное количество Путевых точек,
-                        оставьте заявку, и мы свяжемся с вами
-                        для уточнения деталей и оплаты по СБП.
-                    </p>
-
-                    <div class="hero-actions">
-
-                        <button
-                            class="primary-button"
-                            type="button"
-                            onclick="openForm()"
-                        >
-                            Оставить заявку
-                            <span>→</span>
-                        </button>
-
-                        <a
-                            class="secondary-button"
-                            href="#offers"
-                        >
-                            Посмотреть предложения
-                        </a>
-
-                    </div>
-
-                    <div class="hero-note">
-
-                        <span>Быстрая связь</span>
-                        <span>Оплата по СБП</span>
-                        <span>Без автоматической оплаты</span>
-
-                    </div>
-
-                </div>
-
-
-                <!-- Игровая визуализация -->
-
-                <div class="game-visual">
-
-                    <div class="visual-glow"></div>
-
-                    <div class="tile-board">
-
-                        <div class="tile active"></div>
-                        <div class="tile"></div>
-                        <div class="tile cyan"></div>
-                        <div class="tile"></div>
-
-                        <div class="tile"></div>
-                        <div class="tile green"></div>
-                        <div class="tile active"></div>
-                        <div class="tile"></div>
-
-                        <div class="tile yellow"></div>
-                        <div class="tile"></div>
-                        <div class="tile"></div>
-                        <div class="tile cyan"></div>
-
-                        <div class="tile"></div>
-                        <div class="tile active"></div>
-                        <div class="tile green"></div>
-                        <div class="tile"></div>
-
-                    </div>
-
-                    <div class="visual-badge top">
-                        <span class="visual-badge-icon">✦</span>
-                        <span>Игровое предложение</span>
-                    </div>
-
-                    <div class="visual-badge bottom">
-                        <span class="visual-badge-icon">✓</span>
-                        <span>Оплата по СБП</span>
-                    </div>
-
-                </div>
+                <div class="tile"></div>
+                <div class="tile purple"></div>
+                <div class="tile green"></div>
+                <div class="tile"></div>
 
             </div>
 
-        </section>
-
-
-        <!-- =====================================================
-             ADVANTAGES
-             ===================================================== -->
-
-        <section class="section">
-
-            <div class="container">
-
-                <div class="section-header">
-
-                    <div class="section-label">
-                        Почему удобно
-                    </div>
-
-                    <h2 class="section-title">
-                        Всё просто и понятно
-                    </h2>
-
-                    <p class="section-description">
-                        Вам не нужно разбираться в сложной форме оплаты.
-                        Оставьте контакты — остальные детали обсудим
-                        непосредственно с вами.
-                    </p>
-
-                </div>
-
-
-                <div class="advantages">
-
-                    <div class="advantage">
-
-                        <div class="advantage-icon">
-                            ⚡
-                        </div>
-
-                        <h3>
-                            Быстрая связь
-                        </h3>
-
-                        <p>
-                            После получения заявки мы связываемся
-                            с вами для уточнения деталей.
-                        </p>
-
-                    </div>
-
-
-                    <div class="advantage">
-
-                        <div class="advantage-icon">
-                            ₽
-                        </div>
-
-                        <h3>
-                            Оплата по СБП
-                        </h3>
-
-                        <p>
-                            Оплата производится после согласования
-                            деталей заявки.
-                        </p>
-
-                    </div>
-
-
-                    <div class="advantage">
-
-                        <div class="advantage-icon">
-                            ✓
-                        </div>
-
-                        <h3>
-                            Индивидуальное сопровождение
-                        </h3>
-
-                        <p>
-                            Можно задать вопрос и получить помощь
-                            перед оформлением.
-                        </p>
-
-                    </div>
-
-
-                    <div class="advantage">
-
-                        <div class="advantage-icon">
-                            ◈
-                        </div>
-
-                        <h3>
-                            Простая заявка
-                        </h3>
-
-                        <p>
-                            Укажите имя и удобный способ связи —
-                            этого достаточно для первого контакта.
-                        </p>
-
-                    </div>
-
-                </div>
-
+            <div class="visual-card one">
+                ✦ Игровое предложение
             </div>
 
-        </section>
-
-
-        <!-- =====================================================
-             ABOUT
-             ===================================================== -->
-
-        <section
-            class="section"
-            id="about"
-        >
-
-            <div class="container about-grid">
-
-                <div class="about-card">
-
-                    <div class="about-orb">
-                        TS
-                    </div>
-
-                </div>
-
-
-                <div class="about-content">
-
-                    <div class="section-label">
-                        Путевые точки
-                    </div>
-
-                    <h2>
-                        Что такое
-                        Путевые точки?
-                    </h2>
-
-                    <p>
-                        Путевые точки — игровое предложение для
-                        пользователей Tiles Survive. Вы выбираете
-                        нужное количество, после чего оставляете
-                        заявку на сайте.
-                    </p>
-
-                    <p>
-                        После получения заявки мы связываемся с вами,
-                        уточняем детали и согласовываем дальнейшие
-                        действия и оплату по СБП.
-                    </p>
-
-                    <ul class="about-list">
-
-                        <li>
-                            Можно выбрать нужное количество
-                            Путевых точек.
-                        </li>
-
-                        <li>
-                            Заявка оформляется непосредственно
-                            через сайт.
-                        </li>
-
-                        <li>
-                            Оплата не списывается автоматически
-                            на сайте.
-                        </li>
-
-                        <li>
-                            Перед оплатой детали согласовываются
-                            с клиентом.
-                        </li>
-
-                    </ul>
-
-                </div>
-
+            <div class="visual-card two">
+                ✓ Оплата по СБП
             </div>
 
-        </section>
-
-
-        <!-- =====================================================
-             OFFERS
-             ===================================================== -->
-
-        <section
-            class="section offers-section"
-            id="offers"
-        >
-
-            <div class="container">
-
-                <div class="section-header">
-
-                    <div class="section-label">
-                        Варианты
-                    </div>
-
-                    <h2 class="section-title">
-                        Выберите количество
-                    </h2>
-
-                    <p class="section-description">
-                        Нажмите на блок ниже, чтобы открыть список
-                        доступных предложений.
-                    </p>
-
-                </div>
-
-
-                <div
-                    class="offers-box"
-                    id="offersBox"
-                >
-
-                    <button
-                        type="button"
-                        class="offers-toggle"
-                        onclick="toggleOffers()"
-                        aria-expanded="false"
-                    >
-
-                        <span class="offers-toggle-text">
-
-                            <strong>
-                                Открыть список Путевых точек
-                            </strong>
-
-                            <span>
-                                8 вариантов предложения
-                            </span>
-
-                        </span>
-
-                        <span class="toggle-arrow">
-                            ↓
-                        </span>
-
-                    </button>
-
-
-                    <div class="offers-list">
-
-                        <div class="offers-inner">
-
-                            <!-- 5 000 -->
-
-                            <div class="offer">
-
-                                <div class="offer-name">
-                                    5 000 Путевых точек
-                                    <small>
-                                        Вариант предложения
-                                    </small>
-                                </div>
-
-                                <div class="offer-price">
-                                    3 600 ₽
-                                </div>
-
-                                <button
-                                    type="button"
-                                    class="offer-button"
-                                    onclick="openForm('5 000', '3 600 ₽')"
-                                >
-                                    Оставить заявку
-                                </button>
-
-                            </div>
-
-
-                            <!-- 10 000 -->
-
-                            <div class="offer">
-
-                                <div class="offer-name">
-                                    10 000 Путевых точек
-                                    <small>
-                                        Вариант предложения
-                                    </small>
-                                </div>
-
-                                <div class="offer-price">
-                                    7 200 ₽
-                                </div>
-
-                                <button
-                                    type="button"
-                                    class="offer-button"
-                                    onclick="openForm('10 000', '7 200 ₽')"
-                                >
-                                    Оставить заявку
-                                </button>
-
-                            </div>
-
-
-                            <!-- 20 000 -->
-
-                            <div class="offer">
-
-                                <div class="offer-name">
-                                    20 000 Путевых точек
-                                    <small>
-                                        Вариант предложения
-                                    </small>
-                                </div>
-
-                                <div class="offer-price">
-                                    14 400 ₽
-                                </div>
-
-                                <button
-                                    type="button"
-                                    class="offer-button"
-                                    onclick="openForm('20 000', '14 400 ₽')"
-                                >
-                                    Оставить заявку
-                                </button>
-
-                            </div>
-
-
-                            <!-- 30 000 -->
-
-                            <div class="offer">
-
-                                <div class="offer-name">
-                                    30 000 Путевых точек
-                                    <small>
-                                        Вариант предложения
-                                    </small>
-                                </div>
-
-                                <div class="offer-price">
-                                    21 600 ₽
-                                </div>
-
-                                <button
-                                    type="button"
-                                    class="offer-button"
-                                    onclick="openForm('30 000', '21 600 ₽')"
-                                >
-                                    Оставить заявку
-                                </button>
-
-                            </div>
-
-
-                            <!-- 40 000 -->
-
-                            <div class="offer">
-
-                                <div class="offer-name">
-                                    40 000 Путевых точек
-                                    <small>
-                                        Вариант предложения
-                                    </small>
-                                </div>
-
-                                <div class="offer-price">
-                                    28 800 ₽
-                                </div>
-
-                                <button
-                                    type="button"
-                                    class="offer-button"
-                                    onclick="openForm('40 000', '28 800 ₽')"
-                                >
-                                    Оставить заявку
-                                </button>
-
-                            </div>
-
-
-                            <!-- 50 000 -->
-
-                            <div class="offer">
-
-                                <div class="offer-name">
-                                    50 000 Путевых точек
-                                    <small>
-                                        Вариант предложения
-                                    </small>
-                                </div>
-
-                                <div class="offer-price">
-                                    36 000 ₽
-                                </div>
-
-                                <button
-                                    type="button"
-                                    class="offer-button"
-                                    onclick="openForm('50 000', '36 000 ₽')"
-                                >
-                                    Оставить заявку
-                                </button>
-
-                            </div>
-
-
-                            <!-- 100 000 -->
-
-                            <div class="offer">
-
-                                <div class="offer-name">
-                                    100 000 Путевых точек
-                                    <small>
-                                        Вариант предложения
-                                    </small>
-                                </div>
-
-                                <div class="offer-price">
-                                    72 000 ₽
-                                </div>
-
-                                <button
-                                    type="button"
-                                    class="offer-button"
-                                    onclick="openForm('100 000', '72 000 ₽')"
-                                >
-                                    Оставить заявку
-                                </button>
-
-                            </div>
-
-
-                            <!-- 200 000 -->
-
-                            <div class="offer">
-
-                                <div class="offer-name">
-                                    200 000 Путевых точек
-                                    <small>
-                                        Вариант предложения
-                                    </small>
-                                </div>
-
-                                <div class="offer-price">
-                                    144 000 ₽
-                                </div>
-
-                                <button
-                                    type="button"
-                                    class="offer-button"
-                                    onclick="openForm('200 000', '144 000 ₽')"
-                                >
-                                    Оставить заявку
-                                </button>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
+        </div>
+
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+
+        <div class="section-head">
+            <div class="section-label">Преимущества</div>
+
+            <h2 class="section-title">
+                Всё просто
+            </h2>
+
+            <p class="section-description">
+                Вам не нужно оплачивать заказ непосредственно
+                на сайте. Сначала оставляется заявка,
+                затем мы связываемся с вами.
+            </p>
+        </div>
+
+        <div class="advantages">
+
+            <div class="advantage">
+                <div class="icon">⚡</div>
+                <h3>Быстрая связь</h3>
+                <p>
+                    После получения заявки связываемся
+                    с вами для уточнения деталей.
+                </p>
             </div>
 
-        </section>
-
-
-        <!-- =====================================================
-             HOW IT WORKS
-             ===================================================== -->
-
-        <section
-            class="section"
-            id="how"
-        >
-
-            <div class="container">
-
-                <div class="section-header">
-
-                    <div class="section-label">
-                        Как всё происходит
-                    </div>
-
-                    <h2 class="section-title">
-                        От заявки до оплаты
-                    </h2>
-
-                    <p class="section-description">
-                        Никаких сложных действий на сайте.
-                    </p>
-
-                </div>
-
-
-                <div class="steps">
-
-                    <div class="step">
-
-                        <div class="step-number">
-                            1
-                        </div>
-
-                        <h3>
-                            Выбираете количество
-                        </h3>
-
-                        <p>
-                            Открываете список и выбираете
-                            подходящий вариант.
-                        </p>
-
-                    </div>
-
-
-                    <div class="step">
-
-                        <div class="step-number">
-                            2
-                        </div>
-
-                        <h3>
-                            Оставляете заявку
-                        </h3>
-
-                        <p>
-                            Указываете имя и удобный способ
-                            связи.
-                        </p>
-
-                    </div>
-
-
-                    <div class="step">
-
-                        <div class="step-number">
-                            3
-                        </div>
-
-                        <h3>
-                            Мы связываемся
-                        </h3>
-
-                        <p>
-                            Получаем заявку и связываемся
-                            с вами.
-                        </p>
-
-                    </div>
-
-
-                    <div class="step">
-
-                        <div class="step-number">
-                            4
-                        </div>
-
-                        <h3>
-                            Обсуждаем детали
-                        </h3>
-
-                        <p>
-                            Уточняем выбранное предложение
-                            и детали оформления.
-                        </p>
-
-                    </div>
-
-
-                    <div class="step">
-
-                        <div class="step-number">
-                            5
-                        </div>
-
-                        <h3>
-                            Оплата по СБП
-                        </h3>
-
-                        <p>
-                            После согласования производится
-                            оплата по СБП.
-                        </p>
-
-                    </div>
-
-
-                    <div class="step">
-
-                        <div class="step-number">
-                            6
-                        </div>
-
-                        <h3>
-                            Выполнение договорённости
-                        </h3>
-
-                        <p>
-                            После оплаты выполняется
-                            договорённость по заявке.
-                        </p>
-
-                    </div>
-
-                </div>
-
+            <div class="advantage">
+                <div class="icon">₽</div>
+                <h3>Оплата по СБП</h3>
+                <p>
+                    Оплата производится после согласования
+                    деталей заявки.
+                </p>
             </div>
 
-        </section>
-
-
-        <!-- =====================================================
-             FAQ
-             ===================================================== -->
-
-        <section
-            class="section"
-            id="faq"
-        >
-
-            <div class="container">
-
-                <div class="section-header">
-
-                    <div class="section-label">
-                        FAQ
-                    </div>
-
-                    <h2 class="section-title">
-                        Частые вопросы
-                    </h2>
-
-                </div>
-
-
-                <div class="faq">
-
-                    <div class="faq-item">
-
-                        <button
-                            type="button"
-                            class="faq-question"
-                            onclick="toggleFaq(this)"
-                        >
-                            <span>
-                                Как оформить заказ?
-                            </span>
-
-                            <span class="faq-icon">
-                                +
-                            </span>
-                        </button>
-
-                        <div class="faq-answer">
-
-                            <div class="faq-answer-inner">
-                                Выберите нужное количество Путевых
-                                точек и нажмите «Оставить заявку».
-                                Заполните форму, после чего мы
-                                свяжемся с вами.
-                            </div>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="faq-item">
-
-                        <button
-                            type="button"
-                            class="faq-question"
-                            onclick="toggleFaq(this)"
-                        >
-                            <span>
-                                Как происходит оплата?
-                            </span>
-
-                            <span class="faq-icon">
-                                +
-                            </span>
-                        </button>
-
-                        <div class="faq-answer">
-
-                            <div class="faq-answer-inner">
-                                Оплата не списывается автоматически
-                                на сайте. После получения заявки мы
-                                связываемся с вами и согласовываем
-                                детали оплаты по СБП.
-                            </div>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="faq-item">
-
-                        <button
-                            type="button"
-                            class="faq-question"
-                            onclick="toggleFaq(this)"
-                        >
-                            <span>
-                                Можно ли оплатить по СБП?
-                            </span>
-
-                            <span class="faq-icon">
-                                +
-                            </span>
-                        </button>
-
-                        <div class="faq-answer">
-
-                            <div class="faq-answer-inner">
-                                Да. После связи с вами мы
-                                договариваемся о способе и деталях
-                                оплаты по СБП.
-                            </div>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="faq-item">
-
-                        <button
-                            type="button"
-                            class="faq-question"
-                            onclick="toggleFaq(this)"
-                        >
-                            <span>
-                                Как со мной свяжутся?
-                            </span>
-
-                            <span class="faq-icon">
-                                +
-                            </span>
-                        </button>
-
-                        <div class="faq-answer">
-
-                            <div class="faq-answer-inner">
-                                Укажите в заявке Telegram, телефон
-                                или другой удобный способ связи.
-                                Мы используем указанные вами
-                                контактные данные.
-                            </div>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="faq-item">
-
-                        <button
-                            type="button"
-                            class="faq-question"
-                            onclick="toggleFaq(this)"
-                        >
-                            <span>
-                                Что нужно указать в заявке?
-                            </span>
-
-                            <span class="faq-icon">
-                                +
-                            </span>
-                        </button>
-
-                        <div class="faq-answer">
-
-                            <div class="faq-answer-inner">
-                                Достаточно указать имя и удобный
-                                способ связи. Количество Путевых
-                                точек можно выбрать непосредственно
-                                перед отправкой заявки.
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
+            <div class="advantage">
+                <div class="icon">✓</div>
+                <h3>Сопровождение</h3>
+                <p>
+                    Можно задать вопросы и уточнить детали
+                    перед оплатой.
+                </p>
             </div>
 
-        </section>
-
-
-        <!-- =====================================================
-             CTA
-             ===================================================== -->
-
-        <section class="section">
-
-            <div class="container">
-
-                <div class="cta">
-
-                    <div class="section-label">
-                        Начать оформление
-                    </div>
-
-                    <h2>
-                        Оставьте заявку
-                    </h2>
-
-                    <p>
-                        Выберите количество Путевых точек,
-                        оставьте свои контакты — и мы свяжемся
-                        с вами для дальнейшего оформления.
-                    </p>
-
-                    <button
-                        type="button"
-                        class="primary-button"
-                        onclick="openForm()"
-                    >
-                        Оставить заявку →
-                    </button>
-
-                </div>
-
+            <div class="advantage">
+                <div class="icon">◈</div>
+                <h3>Простая заявка</h3>
+                <p>
+                    Укажите имя и удобный способ связи.
+                </p>
             </div>
 
-        </section>
+        </div>
+    </div>
+</section>
 
-    </main>
+<section class="section" id="about">
+    <div class="container about">
 
+        <div class="about-visual">
+            <div class="about-logo">
+                TS
+            </div>
+        </div>
 
-    <!-- =========================================================
-         FOOTER
-         ========================================================= -->
+        <div class="about-content">
 
-    <footer class="footer">
-
-        <div class="container">
-
-            <div class="footer-inner">
-
-                <div class="footer-brand">
-
-                    <a href="#" class="logo">
-
-                        <span class="logo-icon"></span>
-
-                        <span>
-                            Tiles Survive
-                        </span>
-
-                    </a>
-
-                    <p>
-                        Информационный лендинг предложения
-                        «Путевые точки».
-                    </p>
-
-                </div>
-
-
-                <div class="footer-links">
-
-                    <!-- ЗАМЕНИТЕ ССЫЛКУ НА СВОЙ TELEGRAM -->
-
-                    <a
-                        href="https://t.me/"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        Telegram
-                    </a>
-
-                    <a href="#offers">
-                        Предложения
-                    </a>
-
-                    <a href="#faq">
-                        FAQ
-                    </a>
-
-                </div>
-
+            <div class="section-label">
+                Путевые точки
             </div>
 
+            <h2>
+                Что такое Путевые точки?
+            </h2>
 
-            <div class="footer-bottom">
+            <p>
+                Путевые точки — игровое предложение для
+                пользователей Tiles Survive.
+            </p>
 
-                Перед оплатой детали заявки и выбранного
-                предложения согласовываются с клиентом.
+            <p>
+                Вы выбираете необходимое количество,
+                оставляете заявку, после чего мы связываемся
+                с вами для уточнения деталей.
+            </p>
+
+            <p>
                 Оплата на сайте автоматически не списывается.
+                После согласования деталей оплата производится
+                по СБП.
+            </p>
 
-                <br><br>
-
-                © 2026 Tiles Survive. Все права защищены.
-
-            </div>
+            <ul class="check-list">
+                <li>Выбор количества Путевых точек</li>
+                <li>Заявка через сайт</li>
+                <li>Связь с клиентом</li>
+                <li>Согласование оплаты по СБП</li>
+            </ul>
 
         </div>
 
-    </footer>
+    </div>
+</section>
 
+<section class="section" id="offers">
 
-    <!-- =========================================================
-         MODAL FORM
-         ========================================================= -->
+    <div class="container">
 
-    <div
-        class="modal"
-        id="formModal"
-        onclick="closeModalOutside(event)"
-    >
+        <div class="section-head">
 
-        <div class="modal-card">
+            <div class="section-label">
+                Предложения
+            </div>
+
+            <h2 class="section-title">
+                Выберите количество
+            </h2>
+
+            <p class="section-description">
+                Нажмите на блок, чтобы открыть список.
+            </p>
+
+        </div>
+
+        <div class="offers-box" id="offersBox">
 
             <button
+                class="offers-toggle"
                 type="button"
-                class="modal-close"
-                onclick="closeForm()"
-                aria-label="Закрыть"
+                onclick="toggleOffers()"
             >
-                ×
-            </button>
 
-
-            <div id="formContent">
-
-                <div class="modal-header">
-
-                    <h2>
-                        Оставить заявку
-                    </h2>
-
-                    <p>
-                        Заполните форму, и мы свяжемся
-                        с вами для уточнения деталей.
-                    </p>
-
-                </div>
-
-
-                <div class="selected-offer">
-
-                    <span>
-                        Выбранное предложение
-                    </span>
-
-                    <strong id="selectedOffer">
-                        Не выбрано
+                <span>
+                    <strong>
+                        Открыть список Путевых точек
                     </strong>
 
-                </div>
+                    <small>
+                        8 доступных вариантов
+                    </small>
+                </span>
 
+                <span class="arrow">
+                    ↓
+                </span>
 
-                <div
-                    class="form-error"
-                    id="formError"
-                >
-                    Не удалось отправить заявку.
-                    Попробуйте ещё раз.
-                </div>
+            </button>
 
+            <div class="offers-content">
 
-                <form
-                    id="leadForm"
-                    novalidate
-                >
+                <div class="offers-inner">
 
-                    <!--
-                        Скрытые UTM-поля.
-                        JavaScript заполнит их автоматически.
-                    -->
+                    <div class="offer">
+                        <div class="offer-title">
+                            5 000 Путевых точек
+                            <small>Вариант предложения</small>
+                        </div>
 
-                    <input
-                        type="hidden"
-                        name="utm_source"
-                        id="utm_source"
-                    >
+                        <div class="offer-price">
+                            3 600 ₽
+                        </div>
 
-                    <input
-                        type="hidden"
-                        name="utm_medium"
-                        id="utm_medium"
-                    >
-
-                    <input
-                        type="hidden"
-                        name="utm_campaign"
-                        id="utm_campaign"
-                    >
-
-                    <input
-                        type="hidden"
-                        name="utm_content"
-                        id="utm_content"
-                    >
-
-                    <input
-                        type="hidden"
-                        name="utm_term"
-                        id="utm_term"
-                    >
-
-                    <input
-                        type="hidden"
-                        name="landing_page"
-                        id="landing_page"
-                    >
-
-                    <!-- Защита от простых ботов -->
-
-                    <input
-                        type="text"
-                        name="_honey"
-                        class="honeypot"
-                        tabindex="-1"
-                        autocomplete="off"
-                    >
-
-
-                    <div class="form-group">
-
-                        <label for="name">
-                            Ваше имя *
-                        </label>
-
-                        <input
-                            class="form-control"
-                            type="text"
-                            id="name"
-                            name="name"
-                            placeholder="Например, Алексей"
-                            autocomplete="name"
-                            required
+                        <button
+                            class="offer-button"
+                            onclick="openForm('5 000 — 3 600 ₽')"
                         >
-
+                            Оставить заявку
+                        </button>
                     </div>
 
+                    <div class="offer">
+                        <div class="offer-title">
+                            10 000 Путевых точек
+                            <small>Вариант предложения</small>
+                        </div>
 
-                    <div class="form-group">
+                        <div class="offer-price">
+                            7 200 ₽
+                        </div>
 
-                        <label for="contact">
-                            Telegram / телефон / другой способ связи *
-                        </label>
-
-                        <input
-                            class="form-control"
-                            type="text"
-                            id="contact"
-                            name="contact"
-                            placeholder="@username или +7..."
-                            required
+                        <button
+                            class="offer-button"
+                            onclick="openForm('10 000 — 7 200 ₽')"
                         >
-
+                            Оставить заявку
+                        </button>
                     </div>
 
+                    <div class="offer">
+                        <div class="offer-title">
+                            20 000 Путевых точек
+                            <small>Вариант предложения</small>
+                        </div>
 
-                    <div class="form-group">
+                        <div class="offer-price">
+                            14 400 ₽
+                        </div>
 
-                        <label for="offerSelect">
-                            Количество Путевых точек *
-                        </label>
-
-                        <select
-                            class="form-control"
-                            id="offerSelect"
-                            name="offer"
-                            required
+                        <button
+                            class="offer-button"
+                            onclick="openForm('20 000 — 14 400 ₽')"
                         >
-
-                            <option value="">
-                                Выберите вариант
-                            </option>
-
-                            <option value="5 000 — 3 600 ₽">
-                                5 000 — 3 600 ₽
-                            </option>
-
-                            <option value="10 000 — 7 200 ₽">
-                                10 000 — 7 200 ₽
-                            </option>
-
-                            <option value="20 000 — 14 400 ₽">
-                                20 000 — 14 400 ₽
-                            </option>
-
-                            <option value="30 000 — 21 600 ₽">
-                                30 000 — 21 600 ₽
-                            </option>
-
-                            <option value="40 000 — 28 800 ₽">
-                                40 000 — 28 800 ₽
-                            </option>
-
-                            <option value="50 000 — 36 000 ₽">
-                                50 000 — 36 000 ₽
-                            </option>
-
-                            <option value="100 000 — 72 000 ₽">
-                                100 000 — 72 000 ₽
-                            </option>
-
-                            <option value="200 000 — 144 000 ₽">
-                                200 000 — 144 000 ₽
-                            </option>
-
-                        </select>
-
+                            Оставить заявку
+                        </button>
                     </div>
 
+                    <div class="offer">
+                        <div class="offer-title">
+                            30 000 Путевых точек
+                            <small>Вариант предложения</small>
+                        </div>
 
-                    <div class="form-group">
+                        <div class="offer-price">
+                            21 600 ₽
+                        </div>
 
-                        <label for="comment">
-                            Комментарий
-                        </label>
-
-                        <textarea
-                            class="form-control"
-                            id="comment"
-                            name="comment"
-                            placeholder="Например, когда вам удобно связаться..."
-                        ></textarea>
-
+                        <button
+                            class="offer-button"
+                            onclick="openForm('30 000 — 21 600 ₽')"
+                        >
+                            Оставить заявку
+                        </button>
                     </div>
 
+                    <div class="offer">
+                        <div class="offer-title">
+                            40 000 Путевых точек
+                            <small>Вариант предложения</small>
+                        </div>
 
-                    <button
-                        type="submit"
-                        class="submit-button"
-                        id="submitButton"
-                    >
-                        Отправить заявку
-                    </button>
+                        <div class="offer-price">
+                            28 800 ₽
+                        </div>
 
-
-                    <div class="form-note">
-
-                        Нажимая кнопку «Отправить заявку»,
-                        вы отправляете данные для обратной связи.
-                        Оплата на данном этапе не производится.
-
+                        <button
+                            class="offer-button"
+                            onclick="openForm('40 000 — 28 800 ₽')"
+                        >
+                            Оставить заявку
+                        </button>
                     </div>
 
-                </form>
+                    <div class="offer">
+                        <div class="offer-title">
+                            50 000 Путевых точек
+                            <small>Вариант предложения</small>
+                        </div>
 
-            </div>
+                        <div class="offer-price">
+                            36 000 ₽
+                        </div>
 
+                        <button
+                            class="offer-button"
+                            onclick="openForm('50 000 — 36 000 ₽')"
+                        >
+                            Оставить заявку
+                        </button>
+                    </div>
 
-            <!-- УСПЕШНАЯ ОТПРАВКА -->
+                    <div class="offer">
+                        <div class="offer-title">
+                            100 000 Путевых точек
+                            <small>Вариант предложения</small>
+                        </div>
 
-            <div
-                class="success-message"
-                id="successMessage"
-            >
+                        <div class="offer-price">
+                            72 000 ₽
+                        </div>
 
-                <div class="success-icon">
-                    ✓
+                        <button
+                            class="offer-button"
+                            onclick="openForm('100 000 — 72 000 ₽')"
+                        >
+                            Оставить заявку
+                        </button>
+                    </div>
+
+                    <div class="offer">
+                        <div class="offer-title">
+                            200 000 Путевых точек
+                            <small>Вариант предложения</small>
+                        </div>
+
+                        <div class="offer-price">
+                            144 000 ₽
+                        </div>
+
+                        <button
+                            class="offer-button"
+                            onclick="openForm('200 000 — 144 000 ₽')"
+                        >
+                            Оставить заявку
+                        </button>
+                    </div>
+
                 </div>
-
-                <h3>
-                    Заявка отправлена!
-                </h3>
-
-                <p>
-                    Мы свяжемся с вами для уточнения
-                    деталей и оплаты по СБП.
-                </p>
 
             </div>
 
@@ -3304,866 +1736,1114 @@
 
     </div>
 
+</section>
 
-    <!-- =========================================================
-         JAVASCRIPT
-         ========================================================= -->
+<section class="section" id="steps">
 
-    <script>
+    <div class="container">
 
-        /* =========================================================
-           НАСТРОЙКИ САЙТА
-           ========================================================= */
+        <div class="section-head">
 
-        /*
-         * ========================================================
-         * 1. ЯНДЕКС МЕТРИКА
-         * ========================================================
-         *
-         * ЗАМЕНИТЕ 0 НА НОМЕР ВАШЕГО СЧЁТЧИКА.
-         *
-         * Например:
-         *
-         * const YANDEX_METRIKA_ID = 12345678;
-         *
-         */
+            <div class="section-label">
+                Как оформить
+            </div>
 
-        const YANDEX_METRIKA_ID = 0;
+            <h2 class="section-title">
+                От заявки до оплаты
+            </h2>
+
+        </div>
+
+        <div class="steps">
+
+            <div class="step">
+                <div class="number">1</div>
+                <h3>Выбираете количество</h3>
+                <p>Выберите нужный вариант.</p>
+            </div>
+
+            <div class="step">
+                <div class="number">2</div>
+                <h3>Оставляете заявку</h3>
+                <p>Укажите свои контакты.</p>
+            </div>
+
+            <div class="step">
+                <div class="number">3</div>
+                <h3>Мы связываемся</h3>
+                <p>Получаем вашу заявку.</p>
+            </div>
+
+            <div class="step">
+                <div class="number">4</div>
+                <h3>Обсуждаем детали</h3>
+                <p>Уточняем заказ.</p>
+            </div>
+
+            <div class="step">
+                <div class="number">5</div>
+                <h3>Оплата по СБП</h3>
+                <p>Оплата после согласования.</p>
+            </div>
+
+            <div class="step">
+                <div class="number">6</div>
+                <h3>Выполнение</h3>
+                <p>Выполняется договорённость.</p>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<section class="section" id="faq">
+
+    <div class="container">
+
+        <div class="section-head">
+
+            <div class="section-label">
+                FAQ
+            </div>
+
+            <h2 class="section-title">
+                Частые вопросы
+            </h2>
+
+        </div>
+
+        <div class="faq">
+
+            <div class="faq-item">
+
+                <button
+                    class="faq-question"
+                    onclick="toggleFaq(this)"
+                >
+                    <span>Как оформить заявку?</span>
+                    <span class="faq-plus">+</span>
+                </button>
+
+                <div class="faq-answer">
+                    <div>
+                        Выберите количество Путевых точек,
+                        нажмите «Оставить заявку» и заполните форму.
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="faq-item">
+
+                <button
+                    class="faq-question"
+                    onclick="toggleFaq(this)"
+                >
+                    <span>Как происходит оплата?</span>
+                    <span class="faq-plus">+</span>
+                </button>
+
+                <div class="faq-answer">
+                    <div>
+                        Автоматической оплаты на сайте нет.
+                        После получения заявки мы связываемся
+                        с вами и согласовываем оплату по СБП.
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="faq-item">
+
+                <button
+                    class="faq-question"
+                    onclick="toggleFaq(this)"
+                >
+                    <span>Можно ли оплатить по СБП?</span>
+                    <span class="faq-plus">+</span>
+                </button>
+
+                <div class="faq-answer">
+                    <div>
+                        Да. После связи с вами согласовываются
+                        детали и способ оплаты по СБП.
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="faq-item">
+
+                <button
+                    class="faq-question"
+                    onclick="toggleFaq(this)"
+                >
+                    <span>Как со мной свяжутся?</span>
+                    <span class="faq-plus">+</span>
+                </button>
+
+                <div class="faq-answer">
+                    <div>
+                        Укажите Telegram, телефон или другой
+                        удобный способ связи в форме.
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="faq-item">
+
+                <button
+                    class="faq-question"
+                    onclick="toggleFaq(this)"
+                >
+                    <span>Что указать в заявке?</span>
+                    <span class="faq-plus">+</span>
+                </button>
+
+                <div class="faq-answer">
+                    <div>
+                        Имя, удобный способ связи, выбранное
+                        количество Путевых точек и при желании
+                        дополнительный комментарий.
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<section class="section">
+
+    <div class="container">
+
+        <div class="cta">
+
+            <div class="section-label">
+                Начать оформление
+            </div>
+
+            <h2>
+                Оставьте заявку
+            </h2>
+
+            <p>
+                Выберите предложение и оставьте свои контакты.
+                Мы свяжемся с вами для дальнейшего оформления.
+            </p>
+
+            <button
+                class="primary-button"
+                onclick="openForm()"
+            >
+                Оставить заявку →
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+</main>
+
+<footer class="footer">
+
+    <div class="container">
+
+        <div class="footer-top">
+
+            <div>
+
+                <a href="#" class="logo">
+                    <span class="logo-icon"></span>
+                    <span>Tiles Survive</span>
+                </a>
+
+                <p class="footer-description">
+                    Путевые точки для Tiles Survive.
+                    Заявка оформляется через сайт,
+                    дальнейшие детали согласовываются
+                    с клиентом.
+                </p>
+
+            </div>
+
+            <div class="footer-links">
+
+                <!-- ЗАМЕНИТЕ НА СВОЙ TELEGRAM -->
+
+                <a
+                    href="https://t.me/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    Telegram
+                </a>
+
+                <a href="#offers">
+                    Предложения
+                </a>
+
+                <a href="#faq">
+                    FAQ
+                </a>
+
+            </div>
+
+        </div>
+
+        <div class="footer-bottom">
+            Перед оплатой детали заявки и выбранного предложения
+            согласовываются с клиентом. Автоматического списания
+            средств на сайте нет.
+            <br><br>
+            © 2026 Tiles Survive.
+        </div>
+
+    </div>
+
+</footer>
+
+<!-- MODAL -->
+
+<div
+    class="modal"
+    id="modal"
+    onclick="outsideClose(event)"
+>
+
+    <div class="modal-card">
+
+        <button
+            class="close"
+            onclick="closeForm()"
+            type="button"
+        >
+            ×
+        </button>
+
+        <div id="formBlock">
+
+            <div class="modal-title">
+
+                <h2>
+                    Оставить заявку
+                </h2>
+
+                <p>
+                    Заполните форму — мы свяжемся
+                    с вами для уточнения деталей.
+                </p>
+
+            </div>
+
+            <div class="selected">
+
+                <span>
+                    Выбранное предложение
+                </span>
+
+                <strong id="selectedOffer">
+                    Не выбрано
+                </strong>
+
+            </div>
+
+            <div class="error" id="errorMessage">
+                Не удалось отправить заявку.
+            </div>
+
+            <form id="leadForm">
+
+                <input
+                    type="hidden"
+                    name="utm_source"
+                    id="utm_source"
+                >
+
+                <input
+                    type="hidden"
+                    name="utm_medium"
+                    id="utm_medium"
+                >
+
+                <input
+                    type="hidden"
+                    name="utm_campaign"
+                    id="utm_campaign"
+                >
+
+                <input
+                    type="hidden"
+                    name="utm_content"
+                    id="utm_content"
+                >
+
+                <input
+                    type="hidden"
+                    name="utm_term"
+                    id="utm_term"
+                >
+
+                <input
+                    type="hidden"
+                    name="page_url"
+                    id="page_url"
+                >
+
+                <input
+                    type="text"
+                    name="_honey"
+                    class="hidden-bot"
+                    tabindex="-1"
+                    autocomplete="off"
+                >
+
+                <input
+                    type="hidden"
+                    name="_subject"
+                    value="Новая заявка Tiles Survive"
+                >
+
+                <input
+                    type="hidden"
+                    name="_captcha"
+                    value="false"
+                >
+
+                <div class="form-group">
+
+                    <label for="name">
+                        Ваше имя *
+                    </label>
+
+                    <input
+                        class="input"
+                        id="name"
+                        name="name"
+                        type="text"
+                        placeholder="Например, Алексей"
+                        autocomplete="name"
+                        required
+                    >
+
+                </div>
+
+                <div class="form-group">
+
+                    <label for="contact">
+                        Telegram / телефон / другой способ связи *
+                    </label>
+
+                    <input
+                        class="input"
+                        id="contact"
+                        name="contact"
+                        type="text"
+                        placeholder="@username или +7..."
+                        required
+                    >
+
+                </div>
+
+                <div class="form-group">
+
+                    <label for="offer">
+                        Количество Путевых точек *
+                    </label>
+
+                    <select
+                        id="offer"
+                        name="offer"
+                        required
+                    >
+
+                        <option value="">
+                            Выберите вариант
+                        </option>
+
+                        <option value="5 000 — 3 600 ₽">
+                            5 000 — 3 600 ₽
+                        </option>
+
+                        <option value="10 000 — 7 200 ₽">
+                            10 000 — 7 200 ₽
+                        </option>
+
+                        <option value="20 000 — 14 400 ₽">
+                            20 000 — 14 400 ₽
+                        </option>
+
+                        <option value="30 000 — 21 600 ₽">
+                            30 000 — 21 600 ₽
+                        </option>
+
+                        <option value="40 000 — 28 800 ₽">
+                            40 000 — 28 800 ₽
+                        </option>
+
+                        <option value="50 000 — 36 000 ₽">
+                            50 000 — 36 000 ₽
+                        </option>
+
+                        <option value="100 000 — 72 000 ₽">
+                            100 000 — 72 000 ₽
+                        </option>
+
+                        <option value="200 000 — 144 000 ₽">
+                            200 000 — 144 000 ₽
+                        </option>
+
+                    </select>
+
+                </div>
+
+                <div class="form-group">
+
+                    <label for="comment">
+                        Комментарий
+                    </label>
+
+                    <textarea
+                        id="comment"
+                        name="comment"
+                        placeholder="Например, когда вам удобно связаться..."
+                    ></textarea>
+
+                </div>
+
+                <button
+                    class="submit"
+                    id="submitButton"
+                    type="submit"
+                >
+                    Отправить заявку
+                </button>
+
+                <div class="form-note">
+                    Оплата на этом этапе не производится.
+                    После отправки заявки мы свяжемся с вами.
+                </div>
+
+            </form>
+
+        </div>
+
+        <div class="success" id="success">
+
+            <div class="success-icon">
+                ✓
+            </div>
+
+            <h3>
+                Заявка отправлена!
+            </h3>
+
+            <p>
+                Мы свяжемся с вами для уточнения
+                деталей и оплаты по СБП.
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+/* ============================================================
+   НАСТРОЙКИ
+   ============================================================ */
+
+/*
+   ВАЖНО №1.
+
+   Сюда поставьте номер вашего счётчика Яндекс Метрики.
+
+   Сейчас стоит 0, поэтому Метрика НЕ включается.
+
+   Пример:
+
+   const YANDEX_METRIKA_ID = 12345678;
+*/
+
+const YANDEX_METRIKA_ID = 0;
 
 
-        /*
-         * ========================================================
-         * 2. FORM ENDPOINT
-         * ========================================================
-         *
-         * Используется FormSubmit.
-         *
-         * Вместо:
-         *
-         * YOUR_EMAIL@example.com
-         *
-         * укажите свою электронную почту.
-         *
-         * Например:
-         *
-         * https://formsubmit.co/ajax/myemail@gmail.com
-         *
-         */
+/*
+   ВАЖНО №2.
 
-        const FORM_ENDPOINT =
-            "https://formsubmit.co/ajax/YOUR_EMAIL@example.com";
+   Сюда поставьте ВАШУ электронную почту.
+
+   Например:
+
+   const FORM_EMAIL = "myemail@gmail.com";
+
+   Никакой PHP или сервера для формы не требуется.
+*/
+
+const FORM_EMAIL = "YOUR_EMAIL@example.com";
 
 
-        /*
-         * ========================================================
-         * ИНИЦИАЛИЗАЦИЯ ЯНДЕКС МЕТРИКИ
-         * ========================================================
-         */
+/*
+   FormSubmit endpoint формируется автоматически.
 
-        if (
-            Number.isInteger(YANDEX_METRIKA_ID) &&
-            YANDEX_METRIKA_ID > 0
-        ) {
+   НЕ изменяйте эту строку.
+*/
 
-            (function(m,e,t,r,i,k,a){
+const FORM_ENDPOINT =
+    "https://formsubmit.co/ajax/" + FORM_EMAIL;
 
-                m[i]=m[i]||function(){
 
-                    (m[i].a=m[i].a||[]).push(arguments);
+/* ============================================================
+   ЯНДЕКС МЕТРИКА
+   ============================================================ */
 
-                };
+(function() {
 
-                m[i].l=1*new Date();
+    if (
+        !YANDEX_METRIKA_ID ||
+        Number(YANDEX_METRIKA_ID) <= 0
+    ) {
+        return;
+    }
 
-                for (
-                    var j = 0;
-                    j < document.scripts.length;
-                    j++
-                ) {
+    window.ym = window.ym || function() {
 
-                    if (
-                        document.scripts[j].src.indexOf(
-                            "mc.yandex.ru/metrika/tag.js"
-                        ) > -1
-                    ) {
-                        return;
-                    }
+        (window.ym.a = window.ym.a || [])
+            .push(arguments);
 
-                }
+    };
 
-                k=e.createElement(t);
+    window.ym.l = 1 * new Date();
 
-                a=e.getElementsByTagName(t)[0];
+    const script =
+        document.createElement("script");
 
-                k.async=1;
+    script.async = true;
 
-                k.src=r;
+    script.src =
+        "https://mc.yandex.ru/metrika/tag.js";
 
-                a.parentNode.insertBefore(k,a);
+    document.head.appendChild(script);
 
-            })(
-                window,
-                document,
-                "script",
-                "https://mc.yandex.ru/metrika/tag.js",
-                "ym"
+    ym(
+        YANDEX_METRIKA_ID,
+        "init",
+        {
+            clickmap: true,
+            trackLinks: true,
+            accurateTrackBounce: true,
+            webvisor: true
+        }
+    );
+
+})();
+
+
+/* ============================================================
+   UTM
+   ============================================================ */
+
+const UTM_NAMES = [
+    "utm_source",
+    "utm_medium",
+    "utm_campaign",
+    "utm_content",
+    "utm_term"
+];
+
+
+function saveUTM() {
+
+    const params =
+        new URLSearchParams(
+            window.location.search
+        );
+
+    UTM_NAMES.forEach(function(name) {
+
+        const value =
+            params.get(name);
+
+        if (value) {
+
+            localStorage.setItem(
+                "tiles_" + name,
+                value
             );
 
+        }
 
-            ym(
-                YANDEX_METRIKA_ID,
-                "init",
-                {
-                    clickmap: true,
-                    trackLinks: true,
-                    accurateTrackBounce: true,
-                    webvisor: true
-                }
-            );
+    });
+
+}
+
+
+function getUTM(name) {
+
+    return localStorage.getItem(
+        "tiles_" + name
+    ) || "";
+
+}
+
+
+function fillUTM() {
+
+    UTM_NAMES.forEach(function(name) {
+
+        const input =
+            document.getElementById(name);
+
+        if (input) {
+
+            input.value =
+                getUTM(name);
 
         }
 
+    });
 
-        /* =========================================================
-           UTM-МЕТКИ
-           ========================================================= */
+    const pageURL =
+        document.getElementById("page_url");
 
-        const UTM_KEYS = [
-            "utm_source",
-            "utm_medium",
-            "utm_campaign",
-            "utm_content",
-            "utm_term"
-        ];
+    if (pageURL) {
 
+        pageURL.value =
+            window.location.href;
 
-        function saveUtmParameters() {
+    }
 
-            const params =
-                new URLSearchParams(
-                    window.location.search
-                );
+}
 
 
-            UTM_KEYS.forEach(function(key) {
-
-                const value = params.get(key);
-
-                if (value !== null && value !== "") {
-
-                    localStorage.setItem(
-                        "tiles_" + key,
-                        value
-                    );
-
-                }
-
-            });
-
-        }
+saveUTM();
 
 
-        function getUtmParameters() {
+/* ============================================================
+   СПИСОК ПРЕДЛОЖЕНИЙ
+   ============================================================ */
 
-            const result = {};
+function toggleOffers() {
 
+    const box =
+        document.getElementById("offersBox");
 
-            UTM_KEYS.forEach(function(key) {
+    box.classList.toggle("open");
 
-                result[key] =
-                    localStorage.getItem(
-                        "tiles_" + key
-                    ) || "";
-
-            });
-
-
-            return result;
-
-        }
+}
 
 
-        function fillUtmFields() {
+/* ============================================================
+   ОТКРЫТИЕ ФОРМЫ
+   ============================================================ */
 
-            const utm =
-                getUtmParameters();
+function openForm(selectedOffer) {
 
+    const modal =
+        document.getElementById("modal");
 
-            UTM_KEYS.forEach(function(key) {
+    const selected =
+        document.getElementById("selectedOffer");
 
-                const field =
-                    document.getElementById(key);
-
-                if (field) {
-
-                    field.value =
-                        utm[key] || "";
-
-                }
-
-            });
+    const offer =
+        document.getElementById("offer");
 
 
-            const pageField =
-                document.getElementById(
-                    "landing_page"
-                );
+    if (selectedOffer) {
+
+        selected.textContent =
+            selectedOffer;
+
+        offer.value =
+            selectedOffer;
+
+    } else {
+
+        selected.textContent =
+            "Не выбрано";
+
+        offer.value =
+            "";
+
+    }
 
 
-            if (pageField) {
+    fillUTM();
 
-                pageField.value =
-                    window.location.href;
+
+    document
+        .getElementById("errorMessage")
+        .classList.remove("show");
+
+
+    document
+        .getElementById("formBlock")
+        .style.display = "block";
+
+
+    document
+        .getElementById("success")
+        .classList.remove("show");
+
+
+    modal.classList.add("active");
+
+    document.body.classList.add(
+        "modal-open"
+    );
+
+
+    setTimeout(function() {
+
+        document
+            .getElementById("name")
+            .focus();
+
+    },100);
+
+}
+
+
+/* ============================================================
+   ЗАКРЫТИЕ
+   ============================================================ */
+
+function closeForm() {
+
+    document
+        .getElementById("modal")
+        .classList.remove("active");
+
+    document.body.classList.remove(
+        "modal-open"
+    );
+
+}
+
+
+function outsideClose(event) {
+
+    if (
+        event.target.id === "modal"
+    ) {
+
+        closeForm();
+
+    }
+
+}
+
+
+/* ============================================================
+   FAQ
+   ============================================================ */
+
+function toggleFaq(button) {
+
+    const item =
+        button.closest(".faq-item");
+
+    const answer =
+        item.querySelector(".faq-answer");
+
+    const isOpen =
+        item.classList.contains("open");
+
+
+    document
+        .querySelectorAll(".faq-item")
+        .forEach(function(other) {
+
+            if (other !== item) {
+
+                other.classList.remove("open");
+
+                const otherAnswer =
+                    other.querySelector(".faq-answer");
+
+                otherAnswer.style.maxHeight =
+                    null;
 
             }
 
-        }
+        });
 
 
-        /*
-         * Сохраняем UTM сразу после загрузки.
-         */
+    if (isOpen) {
 
-        saveUtmParameters();
+        item.classList.remove("open");
 
+        answer.style.maxHeight =
+            null;
 
-        /* =========================================================
-           РАСКРЫТИЕ СПИСКА ПРЕДЛОЖЕНИЙ
-           ========================================================= */
+    } else {
 
-        function toggleOffers() {
+        item.classList.add("open");
 
-            const box =
-                document.getElementById(
-                    "offersBox"
-                );
+        answer.style.maxHeight =
+            answer.scrollHeight + "px";
 
-            const button =
-                box.querySelector(
-                    ".offers-toggle"
-                );
+    }
+
+}
 
 
-            const isOpen =
-                box.classList.toggle("open");
+/* ============================================================
+   SELECT
+   ============================================================ */
 
+document
+    .getElementById("offer")
+    .addEventListener(
+        "change",
+        function() {
 
-            button.setAttribute(
-                "aria-expanded",
-                isOpen ? "true" : "false"
-            );
-
-        }
-
-
-        /* =========================================================
-           ОТКРЫТИЕ ФОРМЫ
-           ========================================================= */
-
-        function openForm(
-            points = "",
-            price = ""
-        ) {
-
-            const modal =
-                document.getElementById(
-                    "formModal"
-                );
-
-
-            const selectedOffer =
+            const selected =
                 document.getElementById(
                     "selectedOffer"
                 );
 
+            selected.textContent =
+                this.value ||
+                "Не выбрано";
 
-            const select =
+        }
+    );
+
+
+/* ============================================================
+   ОТПРАВКА ФОРМЫ
+   ============================================================ */
+
+let sending = false;
+
+
+document
+    .getElementById("leadForm")
+    .addEventListener(
+        "submit",
+        async function(event) {
+
+            event.preventDefault();
+
+
+            if (sending) {
+                return;
+            }
+
+
+            const form = this;
+
+            const button =
                 document.getElementById(
-                    "offerSelect"
+                    "submitButton"
+                );
+
+            const error =
+                document.getElementById(
+                    "errorMessage"
                 );
 
 
-            if (points && price) {
-
-                selectedOffer.textContent =
-                    points + " — " + price;
+            error.classList.remove("show");
 
 
-                const value =
-                    points + " — " + price;
+            if (!form.checkValidity()) {
 
+                form.reportValidity();
 
-                for (
-                    let i = 0;
-                    i < select.options.length;
-                    i++
-                ) {
-
-                    if (
-                        select.options[i].value ===
-                        value
-                    ) {
-
-                        select.selectedIndex = i;
-
-                        break;
-
-                    }
-
-                }
-
-            } else {
-
-                selectedOffer.textContent =
-                    "Не выбрано";
+                return;
 
             }
 
 
-            fillUtmFields();
+            const honey =
+                form.querySelector(
+                    '[name="_honey"]'
+                );
 
-
-            document
-                .getElementById("formError")
-                .classList.remove("show");
-
-
-            document
-                .getElementById("formContent")
-                .style.display = "block";
-
-
-            document
-                .getElementById("successMessage")
-                .classList.remove("show");
-
-
-            modal.classList.add("active");
-
-            document.body.classList.add(
-                "modal-open"
-            );
-
-
-            setTimeout(function() {
-
-                document
-                    .getElementById("name")
-                    .focus();
-
-            }, 150);
-
-        }
-
-
-        /* =========================================================
-           ЗАКРЫТИЕ ФОРМЫ
-           ========================================================= */
-
-        function closeForm() {
-
-            document
-                .getElementById("formModal")
-                .classList.remove("active");
-
-
-            document.body.classList.remove(
-                "modal-open"
-            );
-
-        }
-
-
-        function closeModalOutside(event) {
 
             if (
-                event.target.id ===
-                "formModal"
+                honey &&
+                honey.value.trim() !== ""
             ) {
 
-                closeForm();
+                return;
 
             }
-
-        }
-
-
-        /* =========================================================
-           FAQ
-           ========================================================= */
-
-        function toggleFaq(button) {
-
-            const item =
-                button.closest(".faq-item");
-
-
-            const answer =
-                item.querySelector(
-                    ".faq-answer"
-                );
-
-
-            const isOpen =
-                item.classList.contains(
-                    "open"
-                );
 
 
             /*
-             * Закрываем остальные вопросы.
-             */
+               Если почта не указана,
+               показываем понятную ошибку.
+            */
 
-            document
-                .querySelectorAll(".faq-item")
-                .forEach(function(otherItem) {
+            if (
+                FORM_EMAIL ===
+                "YOUR_EMAIL@example.com"
+            ) {
 
-                    if (otherItem !== item) {
+                error.textContent =
+                    "В коде сайта не указана ваша почта. Найдите FORM_EMAIL и укажите её.";
 
-                        otherItem.classList.remove(
-                            "open"
-                        );
+                error.classList.add("show");
 
+                return;
 
-                        const otherAnswer =
-                            otherItem.querySelector(
-                                ".faq-answer"
-                            );
+            }
 
 
-                        if (otherAnswer) {
+            sending = true;
 
-                            otherAnswer.style.maxHeight =
-                                null;
+            button.disabled = true;
 
+            button.textContent =
+                "Отправляем...";
+
+
+            fillUTM();
+
+
+            const formData =
+                new FormData(form);
+
+
+            /*
+               Отправляем заявку
+               через FormSubmit.
+            */
+
+            try {
+
+                const response =
+                    await fetch(
+                        FORM_ENDPOINT,
+                        {
+                            method: "POST",
+
+                            headers: {
+                                "Accept":
+                                    "application/json"
+                            },
+
+                            body: formData
                         }
-
-                    }
-
-                });
+                    );
 
 
-            if (isOpen) {
+                if (!response.ok) {
 
-                item.classList.remove(
-                    "open"
+                    throw new Error(
+                        "HTTP " +
+                        response.status
+                    );
+
+                }
+
+
+                /*
+                   ===============================================
+                   КОНВЕРСИЯ ЯНДЕКС МЕТРИКИ
+                   ===============================================
+
+                   Событие отправляется ТОЛЬКО после успешного
+                   ответа сервиса формы.
+
+                   Идентификатор цели:
+                   form_submit
+                */
+
+                if (
+                    typeof ym === "function" &&
+                    Number(YANDEX_METRIKA_ID) > 0
+                ) {
+
+                    ym(
+                        YANDEX_METRIKA_ID,
+                        "reachGoal",
+                        "form_submit"
+                    );
+
+                }
+
+
+                /*
+                   Показываем успешную отправку.
+                */
+
+                document
+                    .getElementById("formBlock")
+                    .style.display = "none";
+
+
+                document
+                    .getElementById("success")
+                    .classList.add("show");
+
+
+                form.reset();
+
+
+            } catch (errorObject) {
+
+                console.error(
+                    "Ошибка отправки формы:",
+                    errorObject
                 );
 
-                answer.style.maxHeight =
-                    null;
 
-            } else {
+                error.textContent =
+                    "Не удалось отправить заявку. Проверьте почту в настройках FORM_EMAIL и попробуйте ещё раз.";
 
-                item.classList.add(
-                    "open"
-                );
+                error.classList.add("show");
 
-                answer.style.maxHeight =
-                    answer.scrollHeight + "px";
+
+            } finally {
+
+                sending = false;
+
+                button.disabled = false;
+
+                button.textContent =
+                    "Отправить заявку";
 
             }
 
         }
+    );
 
 
-        /* =========================================================
-           ВЫБОР ПРЕДЛОЖЕНИЯ В ФОРМЕ
-           ========================================================= */
+/* ============================================================
+   ESC
+   ============================================================ */
 
-        document
-            .getElementById("offerSelect")
-            .addEventListener(
-                "change",
-                function() {
+document.addEventListener(
+    "keydown",
+    function(event) {
 
-                    const selected =
-                        this.value;
+        if (
+            event.key === "Escape"
+        ) {
 
+            closeForm();
 
-                    const selectedOffer =
-                        document.getElementById(
-                            "selectedOffer"
-                        );
+        }
 
+    }
+);
 
-                    if (selected) {
-
-                        selectedOffer.textContent =
-                            selected;
-
-                    } else {
-
-                        selectedOffer.textContent =
-                            "Не выбрано";
-
-                    }
-
-                }
-            );
-
-
-        /* =========================================================
-           ОТПРАВКА ФОРМЫ
-           ========================================================= */
-
-        let formSending = false;
-
-
-        document
-            .getElementById("leadForm")
-            .addEventListener(
-                "submit",
-                async function(event) {
-
-                    event.preventDefault();
-
-
-                    /*
-                     * Защита от двойного клика.
-                     */
-
-                    if (formSending) {
-
-                        return;
-
-                    }
-
-
-                    const form = this;
-
-                    const error =
-                        document.getElementById(
-                            "formError"
-                        );
-
-
-                    const button =
-                        document.getElementById(
-                            "submitButton"
-                        );
-
-
-                    error.classList.remove(
-                        "show"
-                    );
-
-
-                    /*
-                     * Проверяем обязательные поля.
-                     */
-
-                    if (
-                        !form.checkValidity()
-                    ) {
-
-                        form.reportValidity();
-
-                        return;
-
-                    }
-
-
-                    /*
-                     * Проверяем honeypot.
-                     */
-
-                    const honey =
-                        form.querySelector(
-                            '[name="_honey"]'
-                        );
-
-
-                    if (
-                        honey &&
-                        honey.value.trim() !== ""
-                    ) {
-
-                        return;
-
-                    }
-
-
-                    /*
-                     * Проверяем FORM_ENDPOINT.
-                     */
-
-                    if (
-                        !FORM_ENDPOINT ||
-                        FORM_ENDPOINT.includes(
-                            "YOUR_EMAIL@example.com"
-                        )
-                    ) {
-
-                        error.textContent =
-                            "Сначала укажите вашу почту в переменной FORM_ENDPOINT в коде сайта.";
-
-                        error.classList.add(
-                            "show"
-                        );
-
-                        return;
-
-                    }
-
-
-                    formSending = true;
-
-
-                    button.disabled = true;
-
-                    button.textContent =
-                        "Отправляем...";
-
-
-                    /*
-                     * Обновляем UTM перед отправкой.
-                     */
-
-                    fillUtmFields();
-
-
-                    /*
-                     * Собираем данные.
-                     */
-
-                    const formData =
-                        new FormData(form);
-
-
-                    const data = {};
-
-
-                    formData.forEach(
-                        function(value, key) {
-
-                            data[key] = value;
-
-                        }
-                    );
-
-
-                    /*
-                     * Дополнительная информация.
-                     */
-
-                    data.page_url =
-                        window.location.href;
-
-
-                    data.page_title =
-                        document.title;
-
-
-                    data.sent_at =
-                        new Date()
-                            .toISOString();
-
-
-                    try {
-
-                        const response =
-                            await fetch(
-                                FORM_ENDPOINT,
-                                {
-                                    method: "POST",
-
-                                    headers: {
-                                        "Content-Type":
-                                            "application/json",
-
-                                        "Accept":
-                                            "application/json"
-                                    },
-
-                                    body:
-                                        JSON.stringify(
-                                            data
-                                        )
-                                }
-                            );
-
-
-                        /*
-                         * Если FormSubmit вернул
-                         * неуспешный HTTP-код,
-                         * считаем отправку неуспешной.
-                         */
-
-                        if (
-                            !response.ok
-                        ) {
-
-                            throw new Error(
-                                "Form submission failed"
-                            );
-
-                        }
-
-
-                        /*
-                         * =================================================
-                         * ГЛАВНАЯ КОНВЕРСИЯ ЯНДЕКС МЕТРИКИ
-                         * =================================================
-                         *
-                         * ВАЖНО:
-                         * событие отправляется только после
-                         * успешной отправки заявки.
-                         */
-
-                        if (
-                            typeof ym === "function" &&
-                            YANDEX_METRIKA_ID > 0
-                        ) {
-
-                            ym(
-                                YANDEX_METRIKA_ID,
-                                "reachGoal",
-                                "form_submit"
-                            );
-
-                        }
-
-
-                        /*
-                         * Показываем сообщение об успехе.
-                         */
-
-                        document
-                            .getElementById(
-                                "formContent"
-                            )
-                            .style.display =
-                            "none";
-
-
-                        document
-                            .getElementById(
-                                "successMessage"
-                            )
-                            .classList.add(
-                                "show"
-                            );
-
-
-                        /*
-                         * Очищаем форму.
-                         */
-
-                        form.reset();
-
-
-                    } catch (err) {
-
-                        console.error(
-                            "Ошибка отправки:",
-                            err
-                        );
-
-
-                        error.textContent =
-                            "Не удалось отправить заявку. Проверьте настройки FORM_ENDPOINT и попробуйте ещё раз.";
-
-
-                        error.classList.add(
-                            "show"
-                        );
-
-
-                    } finally {
-
-                        formSending = false;
-
-                        button.disabled =
-                            false;
-
-                        button.textContent =
-                            "Отправить заявку";
-
-                    }
-
-                }
-            );
-
-
-        /* =========================================================
-           ESC — ЗАКРЫТИЕ МОДАЛЬНОГО ОКНА
-           ========================================================= */
-
-        document.addEventListener(
-            "keydown",
-            function(event) {
-
-                if (
-                    event.key === "Escape"
-                ) {
-
-                    closeForm();
-
-                }
-
-            }
-        );
-
-
-        /* =========================================================
-           ПЛАВНОЕ ПОЯВЛЕНИЕ ЭЛЕМЕНТОВ
-           ========================================================= */
-
-        const observer =
-            new IntersectionObserver(
-                function(entries) {
-
-                    entries.forEach(
-                        function(entry) {
-
-                            if (
-                                entry.isIntersecting
-                            ) {
-
-                                entry.target.style.opacity =
-                                    "1";
-
-                                entry.target.style.transform =
-                                    "translateY(0)";
-
-                                observer.unobserve(
-                                    entry.target
-                                );
-
-                            }
-
-                        }
-                    );
-
-                },
-                {
-                    threshold: 0.08
-                }
-            );
-
-
-        document
-            .querySelectorAll(
-                ".advantage, .step, .offer, .faq-item"
-            )
-            .forEach(function(element) {
-
-                element.style.opacity =
-                    "0";
-
-                element.style.transform =
-                    "translateY(12px)";
-
-                element.style.transition =
-                    "opacity 0.5s ease, transform 0.5s ease";
-
-                observer.observe(
-                    element
-                );
-
-            });
-
-    </script>
+</script>
 
 </body>
 </html>
+```
